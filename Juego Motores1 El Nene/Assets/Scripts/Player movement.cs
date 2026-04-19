@@ -22,7 +22,7 @@ public class Playermovement : MonoBehaviour
     [SerializeField] private float jumpHeight = 3;
 
 
-    [SerializeField] private Animator animator;
+  
     void Update()
     {
 
@@ -46,9 +46,7 @@ public class Playermovement : MonoBehaviour
             if (Keyboard.current.sKey.isPressed) z -= 1f; // atras 
         }
 
-        animator.SetFloat("VelX", x);
-        animator.SetFloat("VelZ", z);
-
+     
 
         Vector3 move  = transform.right * x + transform.forward * z;
 
