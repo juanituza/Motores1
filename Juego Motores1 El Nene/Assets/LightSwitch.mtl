@@ -1,0 +1,12 @@
+
+newmtl PlateMat
+Ka 0.8 0.8 0.8
+Kd 0.9 0.9 0.9
+Ks 0.1 0.1 0.1
+Ns 10
+
+newmtl SwitchMat
+Ka 0.7 0.7 0.7
+Kd 0.8 0.8 0.8
+Ks 0.2 0.2 0.2
+Ns 20
