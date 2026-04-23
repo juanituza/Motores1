@@ -7,15 +7,12 @@ public class ControladorNino : MonoBehaviour
     private Vector2 inputMovimiento;
     private Vector3 direccion;
 
-    public float velocidad = 4f;
-    public float velocidadCorrer = 8f;
-    public float gravedad = -9.81f;
+    public float velocidad = 40f;
+    public float velocidadCorrer = 100f;
+    public float gravedad = -70f;
+    public float fuerzaSalto = 10f;
     private float velocidadVertical;
-
     private bool estaCorriendo;
-
-
-    // ... tus variables de movimiento de siempre ...
 
     [Header("Interacción")]
     [SerializeField] private float _interactRange = 5f;
@@ -25,11 +22,6 @@ public class ControladorNino : MonoBehaviour
     {
         controller = GetComponent<CharacterController>();
     }
-
-
-
-    // ESTE ES EL NUEVO MÉTODO QUE TENÉS QUE AGREGAR
-  
 
     public void Moverse(InputAction.CallbackContext context)
     {
@@ -49,26 +41,28 @@ public class ControladorNino : MonoBehaviour
         direccion = transform.right * inputMovimiento.x + transform.forward * inputMovimiento.y;
         controller.Move(direccion * velocidadActual * Time.deltaTime);
 
-        if (controller.isGrounded && velocidadVertical < 0)
+        if (controller.isGrounded)
         {
-            velocidadVertical = -2f;
+            if (velocidadVertical < 0)
+            {
+                velocidadVertical = -50f; 
+            }
         }
-        velocidadVertical += gravedad * Time.deltaTime;
+        else
+        {
+            velocidadVertical += gravedad * Time.deltaTime;
+        }
+        // -------------------------------------
 
         Vector3 movimientoCaida = new Vector3(0, velocidadVertical, 0);
         controller.Move(movimientoCaida * Time.deltaTime);
     }
 
-
-      public void OnInteract(InputAction.CallbackContext context)
+    public void OnInteract(InputAction.CallbackContext context)
     {
-        // Solo se ejecuta cuando presionás el botón (performed)
         if (context.performed)
         {
-            // El rayo sale desde el centro de la pantalla
             Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
-
-            // Dibujamos el rayo en la Scene para que vos veas si llega al interruptor
             Debug.DrawRay(ray.origin, ray.direction * _interactRange, Color.red, 2f);
 
             if (Physics.Raycast(ray, out RaycastHit hit, _interactRange, _interactableLayer))
@@ -85,6 +79,13 @@ public class ControladorNino : MonoBehaviour
             {
                 Debug.Log("El rayo no chocó con nada interactuable.");
             }
+        }
+    }
+    public void Saltar(InputAction.CallbackContext context)
+    {
+        if (context.performed && controller.isGrounded)
+        {
+            velocidadVertical = Mathf.Sqrt(fuerzaSalto * -2f * gravedad);
         }
     }
 }
