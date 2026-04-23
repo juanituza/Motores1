@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Light Tags
   m_EditorClassIdentifier: Assembly-CSharp::LightMaster.LightTagsContainer
   Tags:
-  - luz1
+  - Default

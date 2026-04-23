@@ -6,28 +6,25 @@ public class PlayerInteractor : MonoBehaviour
     [SerializeField] private float _interactRange = 3f;
     [SerializeField] private LayerMask _interactableLayer;
 
-    // Se llama automáticamente cuando presionas "E" (si la acción se llama Interact)
+    // Se llama cuando haces click (porque la acción se llama Interact)
     void OnInteract(InputValue value)
     {
+        // Solo ejecutamos la lógica cuando se presiona el botón
         if (value.isPressed)
         {
-            float range = 3f;
-            // Lanzamos el rayo desde el centro de la cámara (o del jugador) hacia adelante
-            if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, range, _interactableLayer))
+            // Lanzamos el rayo desde el centro de la pantalla
+            Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+
+            if (Physics.Raycast(ray, out RaycastHit hit, _interactRange, _interactableLayer))
             {
-                // 1. Mensaje de prueba para ver en la Consola
-                Debug.Log("¡Rayo chocó con: " + hit.collider.name + "!");
+                Debug.Log("Click en: " + hit.collider.name);
 
-                // 2. Intentamos obtener el script (SOLO UNA VEZ)
                 IInteractable interactable = hit.collider.GetComponent<IInteractable>();
-
-                // 3. Si lo encontramos, ejecutamos la acción
                 if (interactable != null)
                 {
                     interactable.Interact();
                 }
             }
-
         }
     }
 }
