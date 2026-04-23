@@ -7,8 +7,8 @@ public class ControladorNino : MonoBehaviour
     private Vector2 inputMovimiento;
     private Vector3 direccion;
 
-    public float velocidad = 40f;
-    public float velocidadCorrer = 100f;
+    public float velocidad = 100f;
+    public float velocidadCorrer = 150f;
     public float gravedad = -70f;
     public float fuerzaSalto = 10f;
     private float velocidadVertical;

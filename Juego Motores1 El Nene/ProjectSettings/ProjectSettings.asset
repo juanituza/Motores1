@@ -853,8 +853,8 @@ PlayerSettings:
   editorAssembliesCompatibilityLevel: 1
   m_RenderingPath: 1
   m_MobileRenderingPath: 1
-  metroPackageName: Juego Motores1 El Nene
-  metroPackageVersion: 
+  metroPackageName: JuegoMotores1ElNene
+  metroPackageVersion: 1.0.0.0
   metroCertificatePath: 
   metroCertificatePassword: 
   metroCertificateSubject: 
@@ -862,7 +862,7 @@ PlayerSettings:
   metroCertificateNotAfter: 0000000000000000
   metroApplicationDescription: Juego Motores1 El Nene
   wsaImages: {}
-  metroTileShortName: 
+  metroTileShortName: Juego Motores1 El Nene
   metroTileShowName: 0
   metroMediumTileShowName: 0
   metroLargeTileShowName: 0

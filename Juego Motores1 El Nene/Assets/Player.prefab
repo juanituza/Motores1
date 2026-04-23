@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4883969264074006420}
   - component: {fileID: 1697781344030524221}
   - component: {fileID: 7225610748130969490}
-  - component: {fileID: 3254900629035475987}
+  - component: {fileID: 1797482583887326928}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -138,7 +138,7 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
---- !u!114 &3254900629035475987
+--- !u!114 &1797482583887326928
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -147,7 +147,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2063043681653078741}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ccbdcccc9e7cf614ba0ddb53e5c42cb5, type: 3}
+  m_Script: {fileID: 11500000, guid: 6e49e4ab8cc9fb1489842bf9f8363530, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CamaraNino
   sensibilidad: 20
@@ -166,7 +166,9 @@ GameObject:
   - component: {fileID: 2144396095906100139}
   - component: {fileID: 4469439996738982062}
   - component: {fileID: 4082240281455514044}
-  - component: {fileID: 5539458216804072308}
+  - component: {fileID: 1690006845715282267}
+  - component: {fileID: 2142282912852233312}
+  - component: {fileID: 5463958780764374287}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -183,8 +185,8 @@ Transform:
   m_GameObject: {fileID: 6065000194565318526}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 11.949251, y: 0.9, z: -1.9621757}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 420.3, y: 15.6, z: -543.2}
+  m_LocalScale: {x: 18.2, y: 18.2, z: 9.8}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 394248834220023545}
@@ -291,7 +293,7 @@ CharacterController:
   m_Height: 2
   m_Radius: 0.5
   m_SlopeLimit: 45
-  m_StepOffset: 0.3
+  m_StepOffset: 6
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
@@ -322,7 +324,7 @@ MonoBehaviour:
   m_ActionEvents:
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5539458216804072308}
+      - m_Target: {fileID: 1690006845715282267}
         m_TargetAssemblyTypeName: ControladorNino, Assembly-CSharp
         m_MethodName: Moverse
         m_Mode: 0
@@ -338,7 +340,7 @@ MonoBehaviour:
     m_ActionName: 'Player/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]'
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3254900629035475987}
+      - m_Target: {fileID: 1797482583887326928}
         m_TargetAssemblyTypeName: CamaraNino, Assembly-CSharp
         m_MethodName: OnLook
         m_Mode: 0
@@ -352,12 +354,60 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 29f8b83e-a384-421c-be12-5fe728fb7f6f
     m_ActionName: 'Player/Look[/Mouse/delta]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1690006845715282267}
+        m_TargetAssemblyTypeName: ControladorNino, Assembly-CSharp
+        m_MethodName: AlCorrer
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: b607c514-0088-48f8-be4a-f2d861c86697
+    m_ActionName: 'Player/Run[/Keyboard/leftShift]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1690006845715282267}
+        m_TargetAssemblyTypeName: ControladorNino, Assembly-CSharp
+        m_MethodName: OnInteract
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: cc8f3391-085d-424b-8ed9-933f5ce96f21
+    m_ActionName: 'Player/Interact[/Mouse/leftButton]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1690006845715282267}
+        m_TargetAssemblyTypeName: ControladorNino, Assembly-CSharp
+        m_MethodName: Saltar
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 93d5c50d-6e8c-41ab-b3db-fe4613155351
+    m_ActionName: 'Player/Jump[/Keyboard/space]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!114 &5539458216804072308
+--- !u!114 &1690006845715282267
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -366,8 +416,43 @@ MonoBehaviour:
   m_GameObject: {fileID: 6065000194565318526}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e525ccc554921f41b50de7cf7ba70ee, type: 3}
+  m_Script: {fileID: 11500000, guid: e0194555a945d144f906c0c89596a9d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ControladorNino
-  velocidad: 4
-  gravedad: -9.81
+  velocidad: 100
+  velocidadCorrer: 120
+  gravedad: -50
+  fuerzaSalto: 10
+  _interactRange: 100000
+  _interactableLayer:
+    serializedVersion: 2
+    m_Bits: 64
+--- !u!114 &2142282912852233312
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6065000194565318526}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3617a50578adeae4e90991c638c14373, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerInteractor
+  _interactRange: 20.72
+  _interactableLayer:
+    serializedVersion: 2
+    m_Bits: 64
+--- !u!114 &5463958780764374287
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6065000194565318526}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5881d76321f6749488f369bcab5c6285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Selected
+  distance: 9
