@@ -8,6 +8,8 @@ TagManager:
   - Interactable
   - light tags
   - Door
+  - TriggerDoor
+  - Enemy
   layers:
   - Default
   - TransparentFX
