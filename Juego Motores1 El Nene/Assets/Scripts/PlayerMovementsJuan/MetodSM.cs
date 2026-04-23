@@ -32,9 +32,13 @@ public class MetodSM : MonoBehaviour
 
     CharacterController controller;
 
+    [SerializeField] private float _interactRange = 13f;
+    [SerializeField] private LayerMask _interactableLayer;
+
     public void OnMove(InputValue v) => moveInput = v.Get<Vector2>();
     public void OnLook(InputValue v) => lookInput = v.Get<Vector2>();
     public void OnSprint(InputValue v) => sprint = v.isPressed;
+
 
     void Awake()
     {
@@ -87,5 +91,29 @@ public class MetodSM : MonoBehaviour
         velocity.y = yVelocity;
 
         controller.Move(velocity * Time.deltaTime);
+    }
+    public void OnInteract(InputValue value)
+    {
+        if (value.isPressed)
+        {
+            Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+
+            // DIBUJA EL RAYO EN LA ESCENA PARA VERLO
+            Debug.DrawRay(ray.origin, ray.direction * _interactRange, Color.red, 2f);
+
+            if (Physics.Raycast(ray, out RaycastHit hit, _interactRange, _interactableLayer))
+            {
+                Debug.Log("¡Golpeé a: " + hit.collider.name + "!");
+                IInteractable interactable = hit.collider.GetComponent<IInteractable>();
+                if (interactable != null)
+                {
+                    interactable.Interact();
+                }
+            }
+            else
+            {
+                Debug.Log("El rayo no chocó con nada en la capa correcta.");
+            }
+        }
     }
 }

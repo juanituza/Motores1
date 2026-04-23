@@ -3,7 +3,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerInteractor : MonoBehaviour
 {
-    [SerializeField] private float _interactRange = 3f;
+    [SerializeField] private float _interactRange = 13f;
     [SerializeField] private LayerMask _interactableLayer;
 
     // Se llama cuando haces click (porque la acción se llama Interact)
