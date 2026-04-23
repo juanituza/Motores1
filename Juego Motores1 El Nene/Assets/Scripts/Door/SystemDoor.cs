@@ -1,8 +1,6 @@
-using Unity.Mathematics;
 using UnityEngine;
-using UnityEngine.ProBuilder.MeshOperations;
 
-public class SystemDoor : MonoBehaviour
+public class SystemDoor : MonoBehaviour, IInteractable
 {
     [SerializeField] private bool doorOpen = false;
     [SerializeField] private float doorOpenAngle = 95f;
@@ -11,11 +9,12 @@ public class SystemDoor : MonoBehaviour
 
     [SerializeField] private AudioClip openDoor;
     [SerializeField] private AudioClip closeDoor;
-   
-    public void ChangeDoorState()
+
+    public void Interact()
     {
         doorOpen = !doorOpen;
     }
+
     void Update()
     {
         if (doorOpen)
@@ -25,25 +24,36 @@ public class SystemDoor : MonoBehaviour
         }
         else
         {
-            Quaternion targetRotation2 = Quaternion.Euler(0,doorCloseAngle, 0);
-            transform.localRotation = Quaternion.Slerp(transform.localRotation,targetRotation2,smooth * Time.deltaTime);
+            Quaternion targetRotation2 = Quaternion.Euler(0, doorCloseAngle, 0);
+            transform.localRotation = Quaternion.Slerp(transform.localRotation, targetRotation2, smooth * Time.deltaTime);
         }
-
     }
+
+
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "TriggerDoor")
+        if (other.CompareTag("Enemy"))
         {
-            AudioSource.PlayClipAtPoint(closeDoor, transform.position, 1);
+            if (!doorOpen) Interact();
+        }
 
+       
+        if (other.CompareTag("Player") || other.CompareTag("Enemy"))
+        {
+            if (openDoor != null) AudioSource.PlayClipAtPoint(openDoor, transform.position, 1);
         }
     }
     private void OnTriggerExit(Collider other)
     {
-        if (other.tag == "TriggerDoor")
+        
+        if (other.CompareTag("Enemy"))
         {
-            AudioSource.PlayClipAtPoint(openDoor, transform.position, 1);
+            if (doorOpen) Interact();
+        }
 
+        if (other.CompareTag("Player") || other.CompareTag("Enemy"))
+        {
+            if (closeDoor != null) AudioSource.PlayClipAtPoint(closeDoor, transform.position, 1);
         }
     }
 }
