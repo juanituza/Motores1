@@ -7,7 +7,6 @@ TagManager:
   - Closet
   - Interactable
   - light tags
-  - Door
   layers:
   - Default
   - TransparentFX
@@ -17,7 +16,7 @@ TagManager:
   - UI
   - Interactable
   - Ligths Dinner
-  - Door
+  - 
   - 
   - 
   - 
