@@ -12,6 +12,11 @@
 /[Uu]ser[Ss]ettings/
 *.log
 
+# --- FIX PROBUILDER / PROJECT SETTINGS ---
+# Ignora las configuraciones locales de paquetes para que no ensucien el Git
+/ProjectSettings/Packages/
+# -----------------------------------------
+
 # MemoryCaptures can get excessive in size.
 # They also could contain extremely sensitive data
 /[Mm]emoryCaptures/
