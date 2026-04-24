@@ -4,13 +4,13 @@ using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 using System.Collections;
 
-public class CamaraNino : MonoBehaviour
+public class ChildCamera : MonoBehaviour
 {
-    public float sensibilidad = 20f;
-    public Transform cuerpoNino;
+    public float sensitivity = 20f;
+    public Transform childBody;
 
-    private float rotacionX = 0f;
-    private Vector2 inputRaton;
+    private float _xRotation = 0f;
+    private Vector2 _mouseInput;
     private Volume _volume;
     private Vignette _vignette;
 
@@ -28,49 +28,52 @@ public class CamaraNino : MonoBehaviour
 
     public void OnLook(InputAction.CallbackContext context)
     {
-        inputRaton = context.ReadValue<Vector2>();
+        _mouseInput = context.ReadValue<Vector2>();
     }
 
     void LateUpdate()
     {
-        float mouseX = inputRaton.x * sensibilidad * Time.deltaTime;
-        float mouseY = inputRaton.y * sensibilidad * Time.deltaTime;
+        float mouseX = _mouseInput.x * sensitivity * Time.deltaTime;
+        float mouseY = _mouseInput.y * sensitivity * Time.deltaTime;
 
-        rotacionX -= mouseY;
-        rotacionX = Mathf.Clamp(rotacionX, -90f, 90f);
+        _xRotation -= mouseY;
+        _xRotation = Mathf.Clamp(_xRotation, -90f, 90f);
 
-        transform.localRotation = Quaternion.Euler(rotacionX, 0f, 0f);
-        cuerpoNino.Rotate(Vector3.up * mouseX);
+        transform.localRotation = Quaternion.Euler(_xRotation, 0f, 0f);
+
+        childBody.Rotate(Vector3.up * mouseX);
     }
 
-    public void DispararEfecto()
+    public void TriggerEffect()
     {
         if (_vignette != null)
         {
             StopAllCoroutines();
-            StartCoroutine(FlashRojo());
+            StartCoroutine(RedFlashEffect());
         }
     }
 
-    IEnumerator FlashRojo()
+    private IEnumerator RedFlashEffect()
     {
-        float tiempo = 0;
-        while (tiempo < 0.1f)
+        float time = 0;
+
+        while (time < 0.1f)
         {
-            _vignette.intensity.value = Mathf.Lerp(0, 0.5f, tiempo / 0.1f);
-            tiempo += Time.deltaTime;
+            _vignette.intensity.value = Mathf.Lerp(0, 0.5f, time / 0.1f);
+            time += Time.deltaTime;
             yield return null;
         }
 
         yield return new WaitForSeconds(0.1f);
 
-        tiempo = 0;
-        while (tiempo < 0.5f)
+        time = 0;
+        while (time < 0.5f)
         {
-            _vignette.intensity.value = Mathf.Lerp(0.5f, 0, tiempo / 0.5f);
-            tiempo += Time.deltaTime;
+            _vignette.intensity.value = Mathf.Lerp(0.5f, 0, time / 0.5f);
+            time += Time.deltaTime;
             yield return null;
         }
+
         _vignette.intensity.value = 0;
     }
 }

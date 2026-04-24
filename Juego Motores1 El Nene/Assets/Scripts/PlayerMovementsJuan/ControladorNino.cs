@@ -1,70 +1,71 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class ControladorNino : MonoBehaviour
+public class ChildController : MonoBehaviour
 {
-    private CharacterController controller;
-    private Vector2 inputMovimiento;
-    private Vector3 direccion;
+    private CharacterController _controller;
+    private Vector2 _moveInput;
+    private Vector3 _direction;
 
-    public float velocidad = 100f;
-    public float velocidadCorrer = 150f;
-    public float gravedad = -70f;
-    public float fuerzaSalto = 10f;
-    private float velocidadVertical;
-    private bool estaCorriendo;
+    public float walkSpeed = 100f;
+    public float runSpeed = 150f;
+    public float gravity = -70f;
+    public float jumpForce = 10f;
+    private float _verticalVelocity;
+    private bool _isRunning;
 
-    [Header("FootStep System")]
-    [SerializeField] private AudioSource footstepAudioSource;
-    [SerializeField] private AudioClip footstepSound;
-    [SerializeField] private float walkStepInterval = 0.5f;
-    [SerializeField] private float runStepInterval = 0.3f;
+    [SerializeField] private AudioSource _footstepAudioSource;
+    [SerializeField] private AudioClip _footstepSound;
+    [SerializeField] private float _walkStepInterval = 0.5f;
+    [SerializeField] private float _runStepInterval = 0.3f;
+    private float _stepTimer = 0f;
 
-    private float stepTimer = 0f;
-
-
-    [Header("Interacción")]
     [SerializeField] private float _interactRange = 5f;
     [SerializeField] private LayerMask _interactableLayer;
 
     private void Awake()
     {
-        controller = GetComponent<CharacterController>();
+        _controller = GetComponent<CharacterController>();
+    }
+    public void OnMove(InputAction.CallbackContext context)
+    {
+        _moveInput = context.ReadValue<Vector2>();
     }
 
-    public void Moverse(InputAction.CallbackContext context)
+    public void OnRun(InputAction.CallbackContext context)
     {
-        inputMovimiento = context.ReadValue<Vector2>();
+        if (context.performed) _isRunning = true;
+        if (context.canceled) _isRunning = false;
     }
 
-    public void AlCorrer(InputAction.CallbackContext context)
+    public void OnJump(InputAction.CallbackContext context)
     {
-        if (context.performed) estaCorriendo = true;
-        if (context.canceled) estaCorriendo = false;
+        if (context.performed && _controller.isGrounded)
+        {
+            _verticalVelocity = Mathf.Sqrt(jumpForce * -2f * gravity);
+        }
     }
 
     void Update()
     {
-        float velocidadActual = estaCorriendo ? velocidadCorrer : velocidad;
+        float currentSpeed = _isRunning ? runSpeed : walkSpeed;
+        _direction = transform.right * _moveInput.x + transform.forward * _moveInput.y;
+        _controller.Move(_direction * currentSpeed * Time.deltaTime);
 
-        direccion = transform.right * inputMovimiento.x + transform.forward * inputMovimiento.y;
-        controller.Move(direccion * velocidadActual * Time.deltaTime);
-
-        if (controller.isGrounded)
+        if (_controller.isGrounded)
         {
-            if (velocidadVertical < 0)
+            if (_verticalVelocity < 0)
             {
-                velocidadVertical = -50f; 
+                _verticalVelocity = -50f; 
             }
         }
         else
         {
-            velocidadVertical += gravedad * Time.deltaTime;
+            _verticalVelocity += gravity * Time.deltaTime;
         }
-        // -------------------------------------
 
-        Vector3 movimientoCaida = new Vector3(0, velocidadVertical, 0);
-        controller.Move(movimientoCaida * Time.deltaTime);
+        Vector3 fallMovement = new Vector3(0, _verticalVelocity, 0);
+        _controller.Move(fallMovement * Time.deltaTime);
 
         HandleFootsteps();
     }
@@ -78,7 +79,7 @@ public class ControladorNino : MonoBehaviour
 
             if (Physics.Raycast(ray, out RaycastHit hit, _interactRange, _interactableLayer))
             {
-                Debug.Log("¡Golpeé a: " + hit.collider.name + "!");
+                Debug.Log("Hit: " + hit.collider.name);
 
                 IInteractable interactable = hit.collider.GetComponent<IInteractable>();
                 if (interactable != null)
@@ -86,52 +87,36 @@ public class ControladorNino : MonoBehaviour
                     interactable.Interact();
                 }
             }
-            else
-            {
-                Debug.Log("El rayo no chocó con nada interactuable.");
-            }
         }
     }
-    public void Saltar(InputAction.CallbackContext context)
-    {
-        if (context.performed && controller.isGrounded)
-        {
-            velocidadVertical = Mathf.Sqrt(fuerzaSalto * -2f * gravedad);
-        }
-    }
+
     private void HandleFootsteps()
     {
-
-        bool isMoving = controller.isGrounded && inputMovimiento.magnitude > 0.1f;
+        bool isMoving = _controller.isGrounded && _moveInput.magnitude > 0.1f;
 
         if (isMoving)
         {
-            stepTimer += Time.deltaTime;
+            _stepTimer += Time.deltaTime;
+            float currentInterval = _isRunning ? _runStepInterval : _walkStepInterval;
 
-            float currentInterval = estaCorriendo ? runStepInterval : walkStepInterval;
-
-            if (stepTimer >= currentInterval)
+            if (_stepTimer >= currentInterval)
             {
                 PlayFootstep();
-                stepTimer = 0f;
+                _stepTimer = 0f;
             }
         }
         else
         {
-            stepTimer = walkStepInterval;
+            _stepTimer = _walkStepInterval; 
         }
     }
 
     private void PlayFootstep()
     {
-
-       
-        if (footstepSound != null && footstepAudioSource != null)
+        if (_footstepSound != null && _footstepAudioSource != null)
         {
-            
-            footstepAudioSource.pitch = Random.Range(0.85f, 1.15f);
-            footstepAudioSource.PlayOneShot(footstepSound);
+            _footstepAudioSource.pitch = Random.Range(0.85f, 1.15f);
+            _footstepAudioSource.PlayOneShot(_footstepSound);
         }
     }
-
 }
