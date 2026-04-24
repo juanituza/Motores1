@@ -8,6 +8,10 @@ TagManager:
   - Interactable
   - light tags
   - Door
+<<<<<<< Updated upstream
+=======
+  - Comedor
+>>>>>>> Stashed changes
   layers:
   - Default
   - TransparentFX
