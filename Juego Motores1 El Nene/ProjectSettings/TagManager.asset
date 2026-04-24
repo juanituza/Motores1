@@ -8,6 +8,7 @@ TagManager:
   - Interactable
   - light tags
   - Door
+  - TriggerDoor
   layers:
   - Default
   - TransparentFX

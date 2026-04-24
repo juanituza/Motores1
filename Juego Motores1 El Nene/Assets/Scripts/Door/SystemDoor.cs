@@ -1,21 +1,29 @@
-using Unity.Mathematics;
 using UnityEngine;
-using UnityEngine.ProBuilder.MeshOperations;
 
-public class SystemDoor : MonoBehaviour
+public class SystemDoor : MonoBehaviour, IInteractable
 {
     [SerializeField] private bool doorOpen = false;
     [SerializeField] private float doorOpenAngle = 95f;
     [SerializeField] private float doorCloseAngle = 0.0f;
-    [SerializeField] private float smooth = 3.0f; // velocidad rotacion
+    [SerializeField] private float smooth = 3.0f;
 
     [SerializeField] private AudioClip openDoor;
     [SerializeField] private AudioClip closeDoor;
-   
-    public void ChangeDoorState()
+
+    public void Interact()
     {
         doorOpen = !doorOpen;
+
+        if (doorOpen)
+        {
+            if (openDoor != null) AudioSource.PlayClipAtPoint(openDoor, transform.position, 1f);
+        }
+        else
+        {
+            if (closeDoor != null) AudioSource.PlayClipAtPoint(closeDoor, transform.position, 1f);
+        }
     }
+
     void Update()
     {
         if (doorOpen)
@@ -25,25 +33,8 @@ public class SystemDoor : MonoBehaviour
         }
         else
         {
-            Quaternion targetRotation2 = Quaternion.Euler(0,doorCloseAngle, 0);
-            transform.localRotation = Quaternion.Slerp(transform.localRotation,targetRotation2,smooth * Time.deltaTime);
-        }
-
-    }
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.tag == "TriggerDoor")
-        {
-            AudioSource.PlayClipAtPoint(closeDoor, transform.position, 1);
-
-        }
-    }
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.tag == "TriggerDoor")
-        {
-            AudioSource.PlayClipAtPoint(openDoor, transform.position, 1);
-
+            Quaternion targetRotation2 = Quaternion.Euler(0, doorCloseAngle, 0);
+            transform.localRotation = Quaternion.Slerp(transform.localRotation, targetRotation2, smooth * Time.deltaTime);
         }
     }
 }
