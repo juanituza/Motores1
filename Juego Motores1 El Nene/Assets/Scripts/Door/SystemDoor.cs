@@ -5,7 +5,7 @@ public class SystemDoor : MonoBehaviour, IInteractable
     [SerializeField] private bool doorOpen = false;
     [SerializeField] private float doorOpenAngle = 95f;
     [SerializeField] private float doorCloseAngle = 0.0f;
-    [SerializeField] private float smooth = 3.0f; // velocidad rotacion
+    [SerializeField] private float smooth = 3.0f;
 
     [SerializeField] private AudioClip openDoor;
     [SerializeField] private AudioClip closeDoor;
@@ -13,6 +13,15 @@ public class SystemDoor : MonoBehaviour, IInteractable
     public void Interact()
     {
         doorOpen = !doorOpen;
+
+        if (doorOpen)
+        {
+            if (openDoor != null) AudioSource.PlayClipAtPoint(openDoor, transform.position, 1f);
+        }
+        else
+        {
+            if (closeDoor != null) AudioSource.PlayClipAtPoint(closeDoor, transform.position, 1f);
+        }
     }
 
     void Update()
@@ -26,34 +35,6 @@ public class SystemDoor : MonoBehaviour, IInteractable
         {
             Quaternion targetRotation2 = Quaternion.Euler(0, doorCloseAngle, 0);
             transform.localRotation = Quaternion.Slerp(transform.localRotation, targetRotation2, smooth * Time.deltaTime);
-        }
-    }
-
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Enemy"))
-        {
-            if (!doorOpen) Interact();
-        }
-
-       
-        if (other.CompareTag("Player") || other.CompareTag("Enemy"))
-        {
-            if (openDoor != null) AudioSource.PlayClipAtPoint(openDoor, transform.position, 1);
-        }
-    }
-    private void OnTriggerExit(Collider other)
-    {
-        
-        if (other.CompareTag("Enemy"))
-        {
-            if (doorOpen) Interact();
-        }
-
-        if (other.CompareTag("Player") || other.CompareTag("Enemy"))
-        {
-            if (closeDoor != null) AudioSource.PlayClipAtPoint(closeDoor, transform.position, 1);
         }
     }
 }

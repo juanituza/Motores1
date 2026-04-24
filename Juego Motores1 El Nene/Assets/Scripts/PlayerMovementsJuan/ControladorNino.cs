@@ -14,6 +14,15 @@ public class ControladorNino : MonoBehaviour
     private float velocidadVertical;
     private bool estaCorriendo;
 
+    [Header("FootStep System")]
+    [SerializeField] private AudioSource footstepAudioSource;
+    [SerializeField] private AudioClip footstepSound;
+    [SerializeField] private float walkStepInterval = 0.5f;
+    [SerializeField] private float runStepInterval = 0.3f;
+
+    private float stepTimer = 0f;
+
+
     [Header("Interacción")]
     [SerializeField] private float _interactRange = 5f;
     [SerializeField] private LayerMask _interactableLayer;
@@ -21,7 +30,6 @@ public class ControladorNino : MonoBehaviour
     private void Awake()
     {
         controller = GetComponent<CharacterController>();
-
     }
 
     public void Moverse(InputAction.CallbackContext context)
@@ -57,6 +65,8 @@ public class ControladorNino : MonoBehaviour
 
         Vector3 movimientoCaida = new Vector3(0, velocidadVertical, 0);
         controller.Move(movimientoCaida * Time.deltaTime);
+
+        HandleFootsteps();
     }
 
     public void OnInteract(InputAction.CallbackContext context)
@@ -89,4 +99,39 @@ public class ControladorNino : MonoBehaviour
             velocidadVertical = Mathf.Sqrt(fuerzaSalto * -2f * gravedad);
         }
     }
+    private void HandleFootsteps()
+    {
+
+        bool isMoving = controller.isGrounded && inputMovimiento.magnitude > 0.1f;
+
+        if (isMoving)
+        {
+            stepTimer += Time.deltaTime;
+
+            float currentInterval = estaCorriendo ? runStepInterval : walkStepInterval;
+
+            if (stepTimer >= currentInterval)
+            {
+                PlayFootstep();
+                stepTimer = 0f;
+            }
+        }
+        else
+        {
+            stepTimer = walkStepInterval;
+        }
+    }
+
+    private void PlayFootstep()
+    {
+
+       
+        if (footstepSound != null && footstepAudioSource != null)
+        {
+            
+            footstepAudioSource.pitch = Random.Range(0.85f, 1.15f);
+            footstepAudioSource.PlayOneShot(footstepSound);
+        }
+    }
+
 }
