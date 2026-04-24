@@ -9,7 +9,8 @@ namespace LightMaster {
 
     */
     [AddComponentMenu("Light /Light Controller")]
-    public class LightController : MonoBehaviour {
+    public class LightController : MonoBehaviour, IInteractable
+    {
         #region Variables
         [ListPopup(typeof(LightManager), "Tags")]
         public string Tag;
@@ -40,7 +41,7 @@ namespace LightMaster {
 
         [SerializeField] [Tooltip("If the Light is currently Blocked")]
         private bool isBlocked = false;
-
+        private Light _lightComponent;
         #region Variable Groups
         [InspectorName("Timer")] [Tooltip("A collection of variables, controlling the timer")]
         public TimerLightVariables timerLightVariables;
@@ -53,16 +54,25 @@ namespace LightMaster {
 
         [InspectorName("Intensity Change Variables")] [Tooltip("A collection of variables, controlling the Intensity change of the Light")]
         public LightIntensity intensityVariables;
-
         public SmoothTurnOnOff smoothOnOffVariables;
 
         [InspectorName("Events")] [Tooltip("A collection of events")]
         public Events events;
+        // Si este check está activado en el Inspector, la luz arranca apagada
+
         #endregion
 
         #endregion
+
+        [Header("Settings")] // Esto es para que se vea ordenado en el Inspector
+                             
+        [SerializeField] public bool startOff = true;
+        [SerializeField] public bool isInteractable = true;
 
         private void Awake() {
+
+
+                    
             _thisLight = GetComponent<Light>();
             if(LightType == LightControllTypes.Timer)
                 StartCoroutine(BeginTimer());
@@ -76,6 +86,21 @@ namespace LightMaster {
 
             if(ColorGradient)
                 ColorGradientSetup();
+
+            
+            if (_thisLight != null)
+            {
+                if (startOff)
+                {
+                    _thisLight.enabled = false;
+                }
+                else
+                {
+                    _thisLight.enabled = true;
+                    // Si el rayo usa intensidad, asegúrate de que no empiece en 0
+                    if (_thisLight.intensity <= 0) _thisLight.intensity = 1;
+                }
+            }
         }
 
         
@@ -99,6 +124,17 @@ namespace LightMaster {
                 TurnOnSmoothCalc();
             if(isTurningOff)
                 TurnOffSmoothCalc();
+
+
+        }
+        public void Interact()
+        {
+            if (!isInteractable) return; // Si es un rayo de ambiente, no hace nada
+
+            if (_thisLight != null)
+            {
+                _thisLight.enabled = !_thisLight.enabled;
+            }
         }
 
         #region Color Gradient
@@ -214,18 +250,38 @@ namespace LightMaster {
             turnOffIntePSec = smoothOnOffVariables.minIntensity + smoothOnOffVariables.maxIntensity / smoothOnOffVariables.goOffTimer;
         }
 
-        
+
         #endregion
 
         #region Set Values
-        public void SetValue(bool lightValue) {
-            _thisLight.enabled = lightValue;
-            SendEvent();
-        }
-        #endregion
+        //public void SetValue(bool lightValue)
+        //{
+        //    _thisLight.enabled = lightValue;
+        //    SendEvent();
+        //}
+        public void SetValue(bool lightValue)
+        {
+            if (_thisLight == null)
+            {
+                _thisLight = GetComponent<Light>();
+            }
 
-        #region Set Toggle
-        public void Toggle() {
+            // Solo intentamos habilitarlo si encontramos el componente
+            if (_thisLight != null)
+            {
+                _thisLight.enabled = lightValue;
+                SendEvent();
+            }
+            else
+            {
+                Debug.LogWarning($"[LightController] No Light component found on {gameObject.name}!");
+            }
+        }
+
+#endregion
+
+#region Set Toggle
+public void Toggle() {
             if(SmoothSwitching) {
                 if(_thisLight.intensity == smoothOnOffVariables.maxIntensity) {
                     TurnOffSmooth();

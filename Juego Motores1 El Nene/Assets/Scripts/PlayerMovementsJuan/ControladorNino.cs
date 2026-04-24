@@ -21,6 +21,7 @@ public class ControladorNino : MonoBehaviour
     private void Awake()
     {
         controller = GetComponent<CharacterController>();
+
     }
 
     public void Moverse(InputAction.CallbackContext context)
