@@ -15,7 +15,7 @@ public class IAEnemigo : MonoBehaviour
     [SerializeField] private float patrolWaitTime = 2f;
     private int _currentWayPointIndex = 0;
     private bool _isWaiting = false;
-    private bool _isAttacking = false;
+    private bool _isAttacking = true;
 
     [SerializeField] private float normalSpeed = 2.5f;
 
