@@ -9441,7 +9441,7 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5880231318238906743, guid: 91764719c84309643babf62225fffa9f, type: 3}
-      propertyPath: damageCanvas
+      propertyPath: DamageEffect
       value: 
       objectReference: {fileID: 1394783967}
     - target: {fileID: 6065000194565318526, guid: 91764719c84309643babf62225fffa9f, type: 3}
@@ -33209,7 +33209,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1394783968
 RectTransform:
   m_ObjectHideFlags: 0
@@ -52514,7 +52514,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &2111528365
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -52576,7 +52576,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 10
+  m_SortingOrder: 1
   m_TargetDisplay: 0
 --- !u!224 &2111528368
 RectTransform:
