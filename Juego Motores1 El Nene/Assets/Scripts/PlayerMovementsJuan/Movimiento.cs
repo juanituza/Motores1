@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Movimiento : MonoBehaviour
+public class MovimientoNino : MonoBehaviour
 {
     private CharacterController _controller;
     private Vector2 _moveInput;
