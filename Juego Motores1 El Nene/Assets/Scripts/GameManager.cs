@@ -1,55 +1,41 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using UnityEngine.SceneManagement; // Necesario para cambiar de escena
 using System.Collections;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
-    [SerializeField] private GameObject _damageOverlay; // Asignar en el Inspector el Canvas con la imagen roja
-    [SerializeField] private string _gameOverSceneName = "GameOver";
+    [Header("Configuración de Daño")]
+    [SerializeField] private int gameplaySceneIndex = 2;
+    [SerializeField] private string _gameOverSceneName = "GameOver"; // Nombre de tu escena de derrota
 
-    private int _hitsReceived = 0;
+    [SerializeField] private int _hitsReceived = 0; // Contador de golpes
 
     private void Awake()
     {
+        // Singleton: permite que el enemigo llame al Manager fácilmente
         if (Instance == null) Instance = this;
         else Destroy(gameObject);
 
-        if (_damageOverlay != null)
-        {
-            _damageOverlay.SetActive(false);
-        }
     }
 
+    // Esta es la función que el enemigo debe llamar
     public void OnPlayerHit()
     {
         _hitsReceived++;
-        Debug.Log("Hit Recibido. Total: " + _hitsReceived);
+        Debug.Log("Golpes recibidos: " + _hitsReceived);
 
-        if (_hitsReceived == 1)
+        if (_hitsReceived >= 4)
         {
-            StartCoroutine(ShowDamageEffect());
-        }
-        else if (_hitsReceived >= 2)
-        {
+            // Segundo toque: Fin del juego
             GameOver();
         }
     }
 
-    private IEnumerator ShowDamageEffect()
-    {
-        if (_damageOverlay != null)
-        {
-            _damageOverlay.SetActive(true);
-            yield return new WaitForSeconds(1.5f);
-            _damageOverlay.SetActive(false);
-        }
-    }
-   
     public void GameOver()
     {
-        Debug.Log("GameOver: Loading " + _gameOverSceneName);
-        SceneManager.LoadScene("GameOver");
+        Debug.Log("Cargando Game Over...");
+        SceneManager.LoadScene(gameplaySceneIndex);
     }
 }

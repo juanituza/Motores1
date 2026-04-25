@@ -9443,7 +9443,7 @@ PrefabInstance:
     - target: {fileID: 5880231318238906743, guid: 91764719c84309643babf62225fffa9f, type: 3}
       propertyPath: damageCanvas
       value: 
-      objectReference: {fileID: 2111528364}
+      objectReference: {fileID: 1394783967}
     - target: {fileID: 6065000194565318526, guid: 91764719c84309643babf62225fffa9f, type: 3}
       propertyPath: m_Name
       value: Player
@@ -33226,8 +33226,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 26.777, y: 5.88}
-  m_SizeDelta: {x: 1344.581, y: 866.615}
+  m_AnchoredPosition: {x: -0.0099792, y: 0.00047684}
+  m_SizeDelta: {x: 1920, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1394783969
 MonoBehaviour:
@@ -33242,7 +33242,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.0141509175, b: 0.0141509175, a: 0.07058824}
+  m_Color: {r: 1, g: 0.0141509175, b: 0.0141509175, a: 0.078431375}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -40746,78 +40746,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6854033500893890610, guid: 682b33d6b760f1340925b158f60adebe, type: 3}
   m_PrefabInstance: {fileID: 1583799466}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1584631224
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1584631225}
-  - component: {fileID: 1584631227}
-  - component: {fileID: 1584631226}
-  m_Layer: 5
-  m_Name: RawImage
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &1584631225
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1584631224}
-  m_LocalRotation: {x: 0, y: 0, z: 1, w: 0}
-  m_LocalPosition: {x: 0, y: 0, z: 145.8}
-  m_LocalScale: {x: 3.0299494, y: 1.8162096, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1919856987}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -747.2, y: -393.76886}
-  m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1584631226
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1584631224}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.RawImage
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Texture: {fileID: 2800000, guid: 8e1475b80da98fe41a1cf712d4c34261, type: 3}
-  m_UVRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 1
-    height: 1
---- !u!222 &1584631227
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1584631224}
-  m_CullTransparentMesh: 1
 --- !u!1001 &1587631339
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -45739,13 +45667,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1805889847}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 10d24cff97d4ed24cb2ea755a544b33c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
-  _damageOverlay: {fileID: 1394783967}
-  _gameOverSceneName: Derrota
+  gameplaySceneIndex: 2
+  _gameOverSceneName: GameOver
+  _hitsReceived: 0
 --- !u!4 &1805889849
 Transform:
   m_ObjectHideFlags: 0
@@ -48430,7 +48359,6 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1584631225}
   - {fileID: 815219398}
   - {fileID: 1566630380}
   - {fileID: 48857519}
@@ -52581,7 +52509,7 @@ GameObject:
   - component: {fileID: 2111528366}
   - component: {fileID: 2111528365}
   m_Layer: 5
-  m_Name: Pantalla roja
+  m_Name: "Efecto Da\xF1o"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -52648,7 +52576,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 10
   m_TargetDisplay: 0
 --- !u!224 &2111528368
 RectTransform:
