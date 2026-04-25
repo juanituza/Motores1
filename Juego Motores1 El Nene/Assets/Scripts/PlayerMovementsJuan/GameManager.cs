@@ -46,7 +46,7 @@ public class GameManager : MonoBehaviour
             _damageOverlay.SetActive(false);
         }
     }
-
+   
     public void GameOver()
     {
         Debug.Log("GameOver: Loading " + _gameOverSceneName);
