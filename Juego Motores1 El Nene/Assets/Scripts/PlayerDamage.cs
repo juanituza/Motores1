@@ -1,33 +1,29 @@
 using UnityEngine;
-using UnityEngine.UI;
 using System.Collections;
 
 public class PlayerDamage : MonoBehaviour
 {
-    [Header("UI de Daño")]
     [SerializeField] private GameObject damageCanvas;
-    [SerializeField] private float flashDuration;
+    [SerializeField] private float flashDuration = 1.0f;
 
-
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        // Esto imprimirá un mensaje en la consola de Unity cada vez que toques ALGO
-        Debug.Log("He tocado algo llamado: " + collision.gameObject.name);
+        // Esto tiene que salir ahora que el enemigo tiene Rigidbody
+        Debug.Log("Trigger detectado con: " + other.name);
 
-        if (collision.gameObject.CompareTag("Enemy"))
+        if (other.CompareTag("Enemy"))
         {
-            Debug.Log("¡Es un enemigo! Iniciando flash rojo...");
-            StopAllCoroutines();
             StartCoroutine(ShowDamageFlash());
         }
     }
 
     IEnumerator ShowDamageFlash()
     {
-        damageCanvas.SetActive(true);
-
-        yield return new WaitForSeconds(flashDuration);
-
-        damageCanvas.SetActive(false);
+        if (damageCanvas != null)
+        {
+            damageCanvas.SetActive(true);
+            yield return new WaitForSeconds(flashDuration);
+            damageCanvas.SetActive(false);
+        }
     }
 }

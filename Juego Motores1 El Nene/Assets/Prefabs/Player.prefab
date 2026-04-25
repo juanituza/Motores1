@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1697781344030524221}
   - component: {fileID: 7225610748130969490}
   - component: {fileID: 2187560346746884295}
+  - component: {fileID: 1399277449007624622}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -152,6 +153,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Child_Camera
   sensitivity: 20
   childBody: {fileID: 4566286287328541816}
+--- !u!114 &1399277449007624622
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2063043681653078741}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e49e4ab8cc9fb1489842bf9f8363530, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Child_Camera
+  sensitivity: 20
+  childBody: {fileID: 4566286287328541816}
 --- !u!1 &6065000194565318526
 GameObject:
   m_ObjectHideFlags: 0
@@ -169,7 +184,7 @@ GameObject:
   - component: {fileID: 2142282912852233312}
   - component: {fileID: 245493221212855999}
   - component: {fileID: 8597870149648561628}
-  - component: {fileID: 1422372697115374058}
+  - component: {fileID: 5880231318238906743}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -341,7 +356,7 @@ MonoBehaviour:
     m_ActionName: 'Player/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]'
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2187560346746884295}
+      - m_Target: {fileID: 1399277449007624622}
         m_TargetAssemblyTypeName: Child_Camera, Assembly-CSharp
         m_MethodName: OnLook
         m_Mode: 0
@@ -545,7 +560,7 @@ MonoBehaviour:
   _interactableLayer:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &1422372697115374058
+--- !u!114 &5880231318238906743
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -558,4 +573,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerDamage
   damageCanvas: {fileID: 0}
-  flashDuration: 2
+  flashDuration: 1
