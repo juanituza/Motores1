@@ -150,8 +150,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e49e4ab8cc9fb1489842bf9f8363530, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CamaraNino
-  sensibilidad: 20
-  cuerpoNino: {fileID: 4566286287328541816}
+  sensitivity: 20
+  childBody: {fileID: 4566286287328541816}
 --- !u!1 &6065000194565318526
 GameObject:
   m_ObjectHideFlags: 0
@@ -166,12 +166,12 @@ GameObject:
   - component: {fileID: 2144396095906100139}
   - component: {fileID: 4469439996738982062}
   - component: {fileID: 4082240281455514044}
-  - component: {fileID: 1690006845715282267}
   - component: {fileID: 2142282912852233312}
-  - component: {fileID: 5463958780764374287}
+  - component: {fileID: 245493221212855999}
+  - component: {fileID: 8597870149648561628}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -185,7 +185,7 @@ Transform:
   m_GameObject: {fileID: 6065000194565318526}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 420.3, y: 15.6, z: -543.2}
+  m_LocalPosition: {x: 234.9, y: 25.5, z: -684.9561}
   m_LocalScale: {x: 18.2, y: 18.2, z: 9.8}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -324,9 +324,9 @@ MonoBehaviour:
   m_ActionEvents:
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1690006845715282267}
-        m_TargetAssemblyTypeName: ControladorNino, Assembly-CSharp
-        m_MethodName: Moverse
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: ChildController, Assembly-CSharp
+        m_MethodName: OnMove
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -341,7 +341,7 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1797482583887326928}
-        m_TargetAssemblyTypeName: CamaraNino, Assembly-CSharp
+        m_TargetAssemblyTypeName: ChildCamera, Assembly-CSharp
         m_MethodName: OnLook
         m_Mode: 0
         m_Arguments:
@@ -356,9 +356,9 @@ MonoBehaviour:
     m_ActionName: 'Player/Look[/Mouse/delta]'
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1690006845715282267}
-        m_TargetAssemblyTypeName: ControladorNino, Assembly-CSharp
-        m_MethodName: AlCorrer
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: ChildController, Assembly-CSharp
+        m_MethodName: OnRun
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -372,8 +372,8 @@ MonoBehaviour:
     m_ActionName: 'Player/Run[/Keyboard/leftShift]'
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1690006845715282267}
-        m_TargetAssemblyTypeName: ControladorNino, Assembly-CSharp
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: ChildController, Assembly-CSharp
         m_MethodName: OnInteract
         m_Mode: 0
         m_Arguments:
@@ -388,9 +388,9 @@ MonoBehaviour:
     m_ActionName: 'Player/Interact[/Mouse/leftButton]'
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1690006845715282267}
-        m_TargetAssemblyTypeName: ControladorNino, Assembly-CSharp
-        m_MethodName: Saltar
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: ChildController, Assembly-CSharp
+        m_MethodName: OnJump
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -407,26 +407,6 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!114 &1690006845715282267
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6065000194565318526}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e0194555a945d144f906c0c89596a9d5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ControladorNino
-  velocidad: 100
-  velocidadCorrer: 120
-  gravedad: -50
-  fuerzaSalto: 10
-  _interactRange: 100000
-  _interactableLayer:
-    serializedVersion: 2
-    m_Bits: 64
 --- !u!114 &2142282912852233312
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -443,7 +423,104 @@ MonoBehaviour:
   _interactableLayer:
     serializedVersion: 2
     m_Bits: 64
---- !u!114 &5463958780764374287
+--- !u!82 &245493221212855999
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6065000194565318526}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!114 &8597870149648561628
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -452,7 +529,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 6065000194565318526}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5881d76321f6749488f369bcab5c6285, type: 3}
+  m_Script: {fileID: 11500000, guid: 47933d5a510d7a34283b3c86c0f6a278, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Selected
-  distance: 9
+  m_EditorClassIdentifier: Assembly-CSharp::Movimiento
+  walkSpeed: 100
+  runSpeed: 150
+  gravity: -70
+  jumpForce: 10
+  _footstepAudioSource: {fileID: 0}
+  _footstepSound: {fileID: 8300000, guid: 9f44fa926e20ef546be53a9fd2b492fd, type: 3}
+  _walkStepInterval: 0.5
+  _runStepInterval: 0.3
+  _interactRange: 5
+  _interactableLayer:
+    serializedVersion: 2
+    m_Bits: 0

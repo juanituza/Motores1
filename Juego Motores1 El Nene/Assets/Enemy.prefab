@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2329185245852377316}
   - component: {fileID: 4581192934293005793}
   - component: {fileID: 3393669807770251826}
+  - component: {fileID: 7100657894745396152}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -29,7 +30,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1022915114208496212}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 163.30188, y: 28.8, z: -243.7685}
   m_LocalScale: {x: 20, y: 25, z: 15}
   m_ConstrainProportionsScale: 0
@@ -108,7 +109,7 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -129,8 +130,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::IAEnemigo
   player: {fileID: 0}
-  efectoCamara: {fileID: 0}
-  puntosPatrulla:
+  wayPoints:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
@@ -140,8 +140,18 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  tiempoEsperaPatrulla: 1.5
-  velocidadNormal: 20
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  patrolWaitTime: 2
+  normalSpeed: 125
+  _damageCooldown: 2
 --- !u!195 &3393669807770251826
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -152,7 +162,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3.5
+  m_Speed: 300
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -164,3 +174,30 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!54 &7100657894745396152
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1022915114208496212}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0

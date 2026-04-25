@@ -1,12 +1,12 @@
 # --- UNITY DEFAULT ---
 .utmp/
-/[Ll]ibrary/
+[Ll]ibrary/
 /[Tt]emp/
-/[Oo]bj/
-/[Bb]uild/
-/[Bb]uilds/
-/[Ll]ogs/
-/[Uu]ser[Ss]ettings/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Uu]ser[Ss]ettings/
 *.log
 
 # --- FIX PROBUILDER / PROJECT SETTINGS ---
