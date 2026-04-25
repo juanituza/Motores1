@@ -48,7 +48,7 @@ public class GameManager : MonoBehaviour
         Debug.Log("Golpes recibidos: " + _hitsReceived);
 
         // Mantenemos tu lógica de que al segundo (o cuarto según tu script anterior) se termina
-        if (_hitsReceived >= 2)
+        if (_hitsReceived == 4)
         {
             GameOver();
         }
