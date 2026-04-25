@@ -3,7 +3,7 @@ using System.Collections;
 
 public class PlayerDamage : MonoBehaviour
 {
-    [SerializeField] private GameObject damageCanvas;
+    [SerializeField] private GameObject DamageEffect;
     [SerializeField] private float flashDuration = 1.0f;
 
     private void OnTriggerEnter(Collider other)
@@ -13,17 +13,18 @@ public class PlayerDamage : MonoBehaviour
 
         if (other.CompareTag("Enemy"))
         {
+            GameManager.Instance.OnPlayerHit();
             StartCoroutine(ShowDamageFlash());
         }
     }
 
     IEnumerator ShowDamageFlash()
     {
-        if (damageCanvas != null)
+        if (DamageEffect != null)
         {
-            damageCanvas.SetActive(true);
+            DamageEffect.SetActive(true);
             yield return new WaitForSeconds(flashDuration);
-            damageCanvas.SetActive(false);
+            DamageEffect.SetActive(false);
         }
     }
 }
