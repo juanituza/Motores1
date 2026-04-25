@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4883969264074006420}
   - component: {fileID: 1697781344030524221}
   - component: {fileID: 7225610748130969490}
-  - component: {fileID: 1797482583887326928}
+  - component: {fileID: 2187560346746884295}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -138,7 +138,7 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
---- !u!114 &1797482583887326928
+--- !u!114 &2187560346746884295
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -149,7 +149,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6e49e4ab8cc9fb1489842bf9f8363530, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CamaraNino
+  m_EditorClassIdentifier: Assembly-CSharp::Child_Camera
   sensitivity: 20
   childBody: {fileID: 4566286287328541816}
 --- !u!1 &6065000194565318526
@@ -169,6 +169,7 @@ GameObject:
   - component: {fileID: 2142282912852233312}
   - component: {fileID: 245493221212855999}
   - component: {fileID: 8597870149648561628}
+  - component: {fileID: 1422372697115374058}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -187,7 +188,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 234.9, y: 25.5, z: -684.9561}
   m_LocalScale: {x: 18.2, y: 18.2, z: 9.8}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 394248834220023545}
   m_Father: {fileID: 0}
@@ -324,8 +325,8 @@ MonoBehaviour:
   m_ActionEvents:
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: ChildController, Assembly-CSharp
+      - m_Target: {fileID: 8597870149648561628}
+        m_TargetAssemblyTypeName: Movimiento, Assembly-CSharp
         m_MethodName: OnMove
         m_Mode: 0
         m_Arguments:
@@ -340,8 +341,8 @@ MonoBehaviour:
     m_ActionName: 'Player/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]'
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1797482583887326928}
-        m_TargetAssemblyTypeName: ChildCamera, Assembly-CSharp
+      - m_Target: {fileID: 2187560346746884295}
+        m_TargetAssemblyTypeName: Child_Camera, Assembly-CSharp
         m_MethodName: OnLook
         m_Mode: 0
         m_Arguments:
@@ -356,8 +357,8 @@ MonoBehaviour:
     m_ActionName: 'Player/Look[/Mouse/delta]'
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: ChildController, Assembly-CSharp
+      - m_Target: {fileID: 8597870149648561628}
+        m_TargetAssemblyTypeName: Movimiento, Assembly-CSharp
         m_MethodName: OnRun
         m_Mode: 0
         m_Arguments:
@@ -372,8 +373,8 @@ MonoBehaviour:
     m_ActionName: 'Player/Run[/Keyboard/leftShift]'
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: ChildController, Assembly-CSharp
+      - m_Target: {fileID: 8597870149648561628}
+        m_TargetAssemblyTypeName: Movimiento, Assembly-CSharp
         m_MethodName: OnInteract
         m_Mode: 0
         m_Arguments:
@@ -388,8 +389,8 @@ MonoBehaviour:
     m_ActionName: 'Player/Interact[/Mouse/leftButton]'
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: ChildController, Assembly-CSharp
+      - m_Target: {fileID: 8597870149648561628}
+        m_TargetAssemblyTypeName: Movimiento, Assembly-CSharp
         m_MethodName: OnJump
         m_Mode: 0
         m_Arguments:
@@ -543,4 +544,18 @@ MonoBehaviour:
   _interactRange: 5
   _interactableLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4294967295
+--- !u!114 &1422372697115374058
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6065000194565318526}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d76aa2fae397db14c9ec821a38a289b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerDamage
+  damageCanvas: {fileID: 0}
+  flashDuration: 2
