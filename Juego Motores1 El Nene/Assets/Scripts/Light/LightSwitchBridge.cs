@@ -4,7 +4,7 @@ using UnityEngine;
 public class LightSwitchBridge : MonoBehaviour, IInteractable
 {
     private LightAction _lightAction;
-    private bool _hasBeenActivated = false; // Paso 2.1: Control para no sumar de más
+    private bool _hasBeenActivated = false;
 
     void Start()
     {
@@ -29,10 +29,10 @@ public class LightSwitchBridge : MonoBehaviour, IInteractable
             _lightAction.PerformAction();
             Debug.Log($"[Bridge] Action performed on {gameObject.name}");
 
-            // --- PASO 2: AVISAR AL GAMEMANAGER ---
+        
             if (!_hasBeenActivated)
             {
-                _hasBeenActivated = true; // Marcamos que este interruptor ya aportó a la victoria
+                _hasBeenActivated = true;
 
                 if (GameManager.Instance != null)
                 {
@@ -40,7 +40,7 @@ public class LightSwitchBridge : MonoBehaviour, IInteractable
                 }
                 else
                 {
-                    Debug.LogError("¡Rami, no encontré el GameManager en la escena!");
+                    Debug.LogError("No se encontro la escena");
                 }
             }
             // -------------------------------------
