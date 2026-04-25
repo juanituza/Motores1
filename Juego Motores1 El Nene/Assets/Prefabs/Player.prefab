@@ -356,7 +356,7 @@ MonoBehaviour:
     m_ActionName: 'Player/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]'
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1399277449007624622}
+      - m_Target: {fileID: 2187560346746884295}
         m_TargetAssemblyTypeName: Child_Camera, Assembly-CSharp
         m_MethodName: OnLook
         m_Mode: 0
@@ -572,5 +572,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d76aa2fae397db14c9ec821a38a289b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerDamage
-  damageCanvas: {fileID: 0}
+  DamageEffect: {fileID: 0}
   flashDuration: 1
