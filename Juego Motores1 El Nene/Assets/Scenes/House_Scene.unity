@@ -9400,6 +9400,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2142282912852233312, guid: 91764719c84309643babf62225fffa9f, type: 3}
+      propertyPath: _interactableLayer.m_Bits
+      value: 64
+      objectReference: {fileID: 0}
     - target: {fileID: 4082240281455514044, guid: 91764719c84309643babf62225fffa9f, type: 3}
       propertyPath: m_Camera
       value: 
@@ -9512,6 +9516,10 @@ PrefabInstance:
       propertyPath: _footstepAudioSource
       value: 
       objectReference: {fileID: 864781091}
+    - target: {fileID: 8597870149648561628, guid: 91764719c84309643babf62225fffa9f, type: 3}
+      propertyPath: _interactableLayer.m_Bits
+      value: 4294967295
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 8170084048590347470, guid: 91764719c84309643babf62225fffa9f, type: 3}
     - {fileID: 1797482583887326928, guid: 91764719c84309643babf62225fffa9f, type: 3}
@@ -19633,7 +19641,7 @@ GameObject:
   - component: {fileID: 864781092}
   - component: {fileID: 864781091}
   m_Layer: 0
-  m_Name: Steps
+  m_Name: StepsAudioSource
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -54943,6 +54951,10 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1022915114208496212, guid: 7462d78a922a13f4bbc09e4e14d85656, type: 3}
       propertyPath: m_Name
+      value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 1022915114208496212, guid: 7462d78a922a13f4bbc09e4e14d85656, type: 3}
+      propertyPath: m_TagString
       value: Enemy
       objectReference: {fileID: 0}
     - target: {fileID: 2449400475027979082, guid: 7462d78a922a13f4bbc09e4e14d85656, type: 3}
