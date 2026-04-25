@@ -4,6 +4,7 @@ using UnityEngine;
 public class LightSwitchBridge : MonoBehaviour, IInteractable
 {
     private LightAction _lightAction;
+    private bool _hasBeenActivated = false; // Paso 2.1: Control para no sumar de más
 
     void Start()
     {
@@ -19,18 +20,30 @@ public class LightSwitchBridge : MonoBehaviour, IInteractable
     {
         if (_lightAction != null)
         {
-            // Verificamos si el Controller de la acción tiene su luz asignada
-            // Esto previene el NullReference que vimos antes
             var controller = _lightAction.GetComponent<LightController>();
             if (controller != null)
             {
-                // Forzamos el encendido del componente Light si el paquete se olvidó
-                // o si el Awake todavía no corrió correctamente
                 controller.Interact();
             }
 
             _lightAction.PerformAction();
             Debug.Log($"[Bridge] Action performed on {gameObject.name}");
+
+            // --- PASO 2: AVISAR AL GAMEMANAGER ---
+            if (!_hasBeenActivated)
+            {
+                _hasBeenActivated = true; // Marcamos que este interruptor ya aportó a la victoria
+
+                if (GameManager.Instance != null)
+                {
+                    GameManager.Instance.RegisterLightOn();
+                }
+                else
+                {
+                    Debug.LogError("¡Rami, no encontré el GameManager en la escena!");
+                }
+            }
+            // -------------------------------------
         }
     }
 }
