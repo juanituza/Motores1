@@ -1,34 +1,48 @@
 using UnityEngine;
-using UnityEngine.SceneManagement; // Necesario para cambiar de escena
+using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
-    [Header("Configuración de Daño")]
     [SerializeField] private int gameplaySceneIndex = 2;
-    [SerializeField] private string _gameOverSceneName = "GameOver"; // Nombre de tu escena de derrota
+    [SerializeField] private string _gameOverSceneName = "GameOver";
+    [SerializeField] private int _hitsReceived = 0;
 
-    [SerializeField] private int _hitsReceived = 0; // Contador de golpes
+    [SerializeField] private int _totalLightsToWin = 2; 
+    [SerializeField] private string _victorySceneName = "Victory";
+    private int _lightsOnCount = 0; 
 
     private void Awake()
     {
-        // Singleton: permite que el enemigo llame al Manager fácilmente
         if (Instance == null) Instance = this;
         else Destroy(gameObject);
-
     }
 
-    // Esta es la función que el enemigo debe llamar
+    public void RegisterLightOn()
+    {
+        _lightsOnCount++;
+        Debug.Log("Luces prendidas: " + _lightsOnCount + " / " + _totalLightsToWin);
+
+        if (_lightsOnCount >= _totalLightsToWin)
+        {
+            WinGame();
+        }
+    }
+
+    private void WinGame()
+    {
+        Debug.Log("¡Victoria! Cargando escena: " + _victorySceneName);
+        SceneManager.LoadScene(_victorySceneName);
+    }
+
     public void OnPlayerHit()
     {
         _hitsReceived++;
         Debug.Log("Golpes recibidos: " + _hitsReceived);
-
-        if (_hitsReceived >= 4)
+        if (_hitsReceived == 4)
         {
-            // Segundo toque: Fin del juego
             GameOver();
         }
     }
