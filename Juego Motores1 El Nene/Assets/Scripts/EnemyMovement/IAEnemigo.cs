@@ -9,8 +9,6 @@ public class IAEnemigo : MonoBehaviour
 
     [SerializeField] private Transform player;
     private PlayerStats _playerStats;
-
-    [Header("Patrol Settings")]
     [SerializeField] private List<Transform> wayPoints;
     [SerializeField] private float patrolWaitTime = 2f;
     private int _currentWayPointIndex = 0;
@@ -18,8 +16,6 @@ public class IAEnemigo : MonoBehaviour
     private bool _isAttacking = false;
 
     [SerializeField] private float normalSpeed = 2.5f;
-
-    [Header("Damage Settings")]
     [SerializeField] private float _damageCooldown = 2f;
     private float _lastDamageTime;
 
