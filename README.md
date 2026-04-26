@@ -37,7 +37,7 @@ A lo largo del repositorio se pueden encontrar ejemplos y prácticas relacionada
 
 ## link jugable itch.io:
 
-[El nEnE]([https://github.com/KevinRossoDev](https://luzdjeordjian.itch.io/el-nene))  
+[El nEnE](https://luzdjeordjian.itch.io/el-nene)  
 
 ## 🤝 Colaboradores
 
