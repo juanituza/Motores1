@@ -44,5 +44,5 @@ Este repositorio fue desarrollado junto a:
 - [Leandro Pérez](https://github.com/lean85ar)  
 - [Ramiro Muñoz](https://github.com/ramiro-munoz-dev)  
 - [Luz Djéordjian](https://github.com/LuzDjeordjian)  
-- [María Trinidad](https://github.com/Tdade54)
+- [María Trinidad Degregori](https://github.com/Tdade54)
 ``
