@@ -33,7 +33,7 @@ A lo largo del repositorio se pueden encontrar ejemplos y prácticas relacionada
 ---
 ## Branch para correr la versión Beta 1.0:
 
-- JuegoDefinitivo1.0
+- main
 
 
 ## 🤝 Colaboradores
