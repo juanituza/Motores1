@@ -43,7 +43,7 @@ public class LightSwitchBridge : MonoBehaviour, IInteractable
                     Debug.LogError("No se encontro la escena");
                 }
             }
-            // -------------------------------------
+            
         }
     }
 }
