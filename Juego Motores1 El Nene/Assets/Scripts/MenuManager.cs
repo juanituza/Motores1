@@ -6,10 +6,10 @@ public class MainMenuManager : MonoBehaviour
 {
     [Header("Configuración de Escenas")]
     [SerializeField] private int gameplaySceneIndex = 1;
-    [SerializeField] private GameObject howToPlayPanel; // Arrastra el panel de instrucciones aquí
+    [SerializeField] private GameObject howToPlayPanel; // el panel de instrucciones va aca
 
     [Header("Configuración de Sonido")]
-    [SerializeField] private AudioSource stepsAudioSource; // Arrastra el AudioSource de los pasos aquí
+    [SerializeField] private AudioSource stepsAudioSource; // el AudioSource de los pasos va aca
     [SerializeField] private AudioClip footstepsClip;
     [SerializeField] private float interval = 5f;
 
@@ -47,7 +47,7 @@ public class MainMenuManager : MonoBehaviour
 
     public void HowToPlay()
             {
-        // Aquí puedes cargar una escena de instrucciones o mostrar un panel con las instrucciones
+        
         Debug.Log("Mostrando instrucciones...");
         if (howToPlayPanel != null)
         {

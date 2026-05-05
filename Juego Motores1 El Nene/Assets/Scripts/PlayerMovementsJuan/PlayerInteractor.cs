@@ -6,13 +6,13 @@ public class PlayerInteractor : MonoBehaviour
     [SerializeField] private float _interactRange = 13f;
     [SerializeField] private LayerMask _interactableLayer;
 
-    // Se llama cuando haces click (porque la acción se llama Interact)
+   
     void OnInteract(InputValue value)
     {
-        // Solo ejecutamos la lógica cuando se presiona el botón
+        // Logica usada cuando se presiona la tecla
         if (value.isPressed)
         {
-            // Lanzamos el rayo desde el centro de la pantalla
+           
             Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
 
             if (Physics.Raycast(ray, out RaycastHit hit, _interactRange, _interactableLayer))

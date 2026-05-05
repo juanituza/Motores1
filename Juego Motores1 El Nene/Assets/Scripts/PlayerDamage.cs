@@ -8,7 +8,7 @@ public class PlayerDamage : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        // Esto tiene que salir ahora que el enemigo tiene Rigidbody
+        
         Debug.Log("Trigger detectado con: " + other.name);
 
         if (other.CompareTag("Enemy"))
