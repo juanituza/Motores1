@@ -48,4 +48,4 @@ Este repositorio fue desarrollado junto a:
 - [Ramiro Muñoz](https://github.com/ramiro-munoz-dev)  
 - [Luz Djéordjian](https://github.com/LuzDjeordjian)  
 - [María Trinidad Degregori](https://github.com/Tdade54)
-``
+
