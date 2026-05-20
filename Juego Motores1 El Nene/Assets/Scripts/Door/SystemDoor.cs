@@ -12,7 +12,7 @@ public class SystemDoor : MonoBehaviour, IInteractable
 
     public void Interact()
     {
-        doorOpen = !doorOpen; // Alterna el estado de la puerta
+        doorOpen = !doorOpen; 
 
         if (doorOpen)
         {

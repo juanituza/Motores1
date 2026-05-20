@@ -20,8 +20,6 @@ public class MovimientoNino : MonoBehaviour
     [SerializeField] private float _runStepInterval = 0.3f;
     private float _stepTimer = 0f;
 
-    [SerializeField] private float _interactRange = 5f;
-    [SerializeField] private LayerMask _interactableLayer;
 
     private void Awake()
     {
@@ -69,25 +67,7 @@ public class MovimientoNino : MonoBehaviour
         HandleFootsteps();
     }
 
-    public void OnInteract(InputAction.CallbackContext context)
-    {
-        if (context.performed)
-        {
-            Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
-            Debug.DrawRay(ray.origin, ray.direction * _interactRange, Color.red, 2f);
-
-            if (Physics.Raycast(ray, out RaycastHit hit, _interactRange, _interactableLayer))
-            {
-                Debug.Log("Hit: " + hit.collider.name);
-
-                IInteractable interactable = hit.collider.GetComponent<IInteractable>();
-                if (interactable != null)
-                {
-                    interactable.Interact();
-                }
-            }
-        }
-    }
+  
     private void HandleFootsteps()
     {
         bool isMoving = _controller.isGrounded && _moveInput.magnitude > 0.1f;
