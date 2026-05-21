@@ -3,7 +3,7 @@ using UnityEngine.InputSystem;
 using System.Collections;
 
 [RequireComponent(typeof(CharacterController))]
-public class PlayerNewMovement : MonoBehaviour
+public class PlayerNewMovement : MonoBehaviour 
 {
     [Header("Referencias de Input")]
     [SerializeField] private InputActionReference moveAction;
