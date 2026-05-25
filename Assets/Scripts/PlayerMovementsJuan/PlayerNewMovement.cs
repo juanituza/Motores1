@@ -3,33 +3,39 @@ using UnityEngine.InputSystem;
 using System.Collections;
 
 [RequireComponent(typeof(CharacterController))]
-public class PlayerNewMovement : MonoBehaviour 
+public class PlayerNewMovement : MonoBehaviour
 {
     [Header("Referencias de Input")]
     [SerializeField] private InputActionReference moveAction;
     [SerializeField] private InputActionReference lookAction;
     [SerializeField] private InputActionReference sprintAction;
     [SerializeField] private InputActionReference crouchAction;
+    // NUEVO: Referencia para la acción de saltar
+    [SerializeField] private InputActionReference jumpAction;
 
     [Header("Referencias de Objetos")]
-    [SerializeField] private Transform cameraTarget; // Objeto vacío a la altura de los ojos
-    [SerializeField] private Transform visualModel;   // EL MODELO 3D DEL NIÑO
+    [SerializeField] private Transform cameraTarget;
+    [SerializeField] private Transform visualModel;
 
     [Header("Configuración de Velocidad")]
     [SerializeField] private float walkSpeed = 2f;
     [SerializeField] private float sprintSpeed = 4f;
     [SerializeField] private float crouchSpeed = 1f;
 
+    // NUEVO: Configuración de la altura del salto
+    [Header("Configuración de Salto")]
+    [SerializeField] private float jumpHeight = 1.0f; // Altura en metros
+
     [Header("Configuración de Cámara")]
     [SerializeField] private float mouseSensitivity = 0.1f;
     [SerializeField] private float maxLookAngle = 80f;
 
-    [Header("Configuración de Agacharse (Valores en METROS reales)")]
+    [Header("Configuración de Agacharse")]
     [SerializeField] private float standingHeight = 1.2f;
     [SerializeField] private float crouchHeight = 0.6f;
     [SerializeField] private float standingCameraY = 1.0f;
     [SerializeField] private float crouchCameraY = 0.5f;
-    [SerializeField] private float crouchScaleFactorY = 0.5f;   // Factor: 0.6 altura / 1.2 total
+    [SerializeField] private float crouchScaleFactorY = 0.5f;
     [SerializeField] private float crouchTransitionSpeed = 10f;
     [SerializeField] private LayerMask obstacleLayer;
 
@@ -48,18 +54,15 @@ public class PlayerNewMovement : MonoBehaviour
     private bool isSprinting = false;
     private Coroutine crouchCoroutine;
 
-    // VARIABLE CLAVE: Guardamos la escala visual base
     private Vector3 originalVisualScale;
 
     private void Awake()
     {
         controller = GetComponent<CharacterController>();
 
-        // FÍSICA: Escala raíz es 1, CC usa valores reales
         controller.height = standingHeight;
         controller.center = new Vector3(0, standingHeight / 2f, 0);
 
-        // VISUAL: Capturamos la escala actual (ej: 20,20,20) en lugar de forzar a 1
         if (visualModel)
         {
             originalVisualScale = visualModel.localScale;
@@ -75,6 +78,10 @@ public class PlayerNewMovement : MonoBehaviour
         sprintAction.action.Enable();
         crouchAction.action.Enable();
 
+        // NUEVO: Habilitamos y nos suscribimos al salto
+        jumpAction.action.Enable();
+        jumpAction.action.performed += PerformJump;
+
         sprintAction.action.performed += ctx => isSprinting = true;
         sprintAction.action.canceled += ctx => isSprinting = false;
         crouchAction.action.performed += ctx => StartCrouchTransition(true);
@@ -87,6 +94,10 @@ public class PlayerNewMovement : MonoBehaviour
         lookAction.action.Disable();
         sprintAction.action.Disable();
         crouchAction.action.Disable();
+
+        // NUEVO: Nos desuscribimos del salto
+        jumpAction.action.performed -= PerformJump;
+        jumpAction.action.Disable();
     }
 
     private void Update()
@@ -113,10 +124,28 @@ public class PlayerNewMovement : MonoBehaviour
         float currentSpeed = walkSpeed;
         if (isCrouching) currentSpeed = crouchSpeed;
         else if (isSprinting) currentSpeed = sprintSpeed;
+
         Vector3 moveDirection = transform.right * currentMovementInput.x + transform.forward * currentMovementInput.y;
-        if (controller.isGrounded && velocity.y < 0) velocity.y = -2f;
+
+        // FÍSICAS: Reseteo de gravedad al tocar el piso
+        if (controller.isGrounded && velocity.y < 0)
+        {
+            velocity.y = -2f;
+        }
+
         velocity.y += gravity * Time.deltaTime;
         controller.Move((moveDirection * currentSpeed + velocity) * Time.deltaTime);
+    }
+
+    // NUEVO: Método que se ejecuta al presionar el botón de salto
+    private void PerformJump(InputAction.CallbackContext context)
+    {
+        // Condición: Solo saltamos si estamos tocando el piso y NO estamos agachados
+        if (controller.isGrounded && !isCrouching)
+        {
+            // Fórmula matemática de Unity: v = raíz cuadrada de (h * -2 * g)
+            velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+        }
     }
 
     private void StartCrouchTransition(bool wantsToCrouch)
@@ -130,19 +159,15 @@ public class PlayerNewMovement : MonoBehaviour
         float targetHeight = wantsToCrouch ? crouchHeight : standingHeight;
         float targetCameraY = wantsToCrouch ? crouchCameraY : standingCameraY;
 
-        // Calculamos el vector de escala objetivo basándonos en la escala original
         Vector3 targetModelScale = originalVisualScale;
         if (wantsToCrouch)
         {
-            // Solo afectamos el eje Y multiplicándolo por el factor (ej: 20 * 0.5 = 10)
             targetModelScale.y = originalVisualScale.y * crouchScaleFactorY;
         }
 
         if (!wantsToCrouch)
         {
-            // Subimos el origen del rayo 10 centímetros para evitar que choque con el piso
             Vector3 rayOrigin = transform.position + (Vector3.up * 0.1f);
-
             if (Physics.Raycast(rayOrigin, Vector3.up, standingHeight, obstacleLayer))
             {
                 isCrouching = true;
@@ -154,15 +179,14 @@ public class PlayerNewMovement : MonoBehaviour
 
         while (Mathf.Abs(controller.height - targetHeight) > 0.01f)
         {
-            // Suavizar Físicas y Cámara (igual que antes)
             float newHeight = Mathf.Lerp(controller.height, targetHeight, crouchTransitionSpeed * Time.deltaTime);
             controller.height = newHeight;
             controller.center = new Vector3(0, newHeight / 2f, 0);
+
             Vector3 camPos = cameraTarget.localPosition;
             camPos.y = Mathf.Lerp(camPos.y, targetCameraY, crouchTransitionSpeed * Time.deltaTime);
             cameraTarget.localPosition = camPos;
 
-            // Suavizar VISUALES usando Lerp de Vectores completos
             if (visualModel)
             {
                 visualModel.localScale = Vector3.Lerp(visualModel.localScale, targetModelScale, crouchTransitionSpeed * Time.deltaTime);
