@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 [RequireComponent(typeof(CharacterController))]
 public class PlayerNewMovement : MonoBehaviour
@@ -42,6 +44,16 @@ public class PlayerNewMovement : MonoBehaviour
     [Header("Físicas")]
     [SerializeField] private float gravity = -9.81f;
 
+    [Header("Stamina")]
+    [SerializeField] private float maxSprintTime = 5f;
+    private float currentStamina;
+
+    [Header("Efectos URP")]
+    [SerializeField] private Volume globalVolume;
+    [SerializeField][Range(0f, 1f)] private float crouchVignetteIntensity = 0.55f;
+    [SerializeField] private float vignetteFadeSpeed = 2f;// Arrastrá tu Global Volume acá
+    private Vignette vignette;
+
     public bool IsHidden { get; private set; }
 
     private CharacterController controller;
@@ -52,6 +64,7 @@ public class PlayerNewMovement : MonoBehaviour
     private float xRotation = 0f;
     private bool isCrouching = false;
     private bool isSprinting = false;
+    private bool isExhausted = false;
     private Coroutine crouchCoroutine;
 
     private Vector3 originalVisualScale;
@@ -69,6 +82,18 @@ public class PlayerNewMovement : MonoBehaviour
         }
 
         SetCameraHeight(standingCameraY);
+
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+
+        // Llenar stamina
+        currentStamina = maxSprintTime;
+
+        // Capturar la viñeta
+        if (globalVolume && globalVolume.profile.TryGet(out Vignette v))
+        {
+            vignette = v;
+        }
     }
 
     private void OnEnable()
@@ -105,6 +130,7 @@ public class PlayerNewMovement : MonoBehaviour
         HandleLook();
         HandleMovement();
         CheckHiddenState();
+        HandleVignette();
     }
 
     private void HandleLook()
@@ -121,11 +147,61 @@ public class PlayerNewMovement : MonoBehaviour
     private void HandleMovement()
     {
         currentMovementInput = moveAction.action.ReadValue<Vector2>();
+        bool isTryingToSprint = isSprinting;
+
+        if (isTryingToSprint && currentMovementInput.magnitude > 0.1f)
+        {
+            currentStamina -= Time.deltaTime;
+            if (currentStamina <= 0)
+            {
+                currentStamina = 0;
+                isTryingToSprint = false; // Forzamos a caminar
+            }
+        }
+        else
+        {
+            // Regenerar stamina si no corre
+            currentStamina += Time.deltaTime;
+            if (currentStamina > maxSprintTime) currentStamina = maxSprintTime;
+        }
+
+        bool actualSprinting = isSprinting && !isExhausted && currentMovementInput.magnitude > 0.1f && !isCrouching;
+        if (actualSprinting)
+        {
+            // Gastamos estamina
+            currentStamina -= Time.deltaTime;
+            if (currentStamina <= 0)
+            {
+                currentStamina = 0;
+                isExhausted = true; // Se quedó sin aire por completo
+            }
+        }
+        else
+        {
+            // Recuperamos estamina
+            currentStamina += Time.deltaTime;
+
+            // Solo se le va el agotamiento cuando la barra se llena al 100%
+            if (currentStamina >= maxSprintTime)
+            {
+                currentStamina = maxSprintTime;
+                isExhausted = false;
+            }
+        }
+    
+
+        if (HUDManager.Instance != null)
+        {
+            HUDManager.Instance.UpdateStamina(currentStamina / maxSprintTime);
+        }
+
+        //Asignacion de Velocidad 
         float currentSpeed = walkSpeed;
         if (isCrouching) currentSpeed = crouchSpeed;
-        else if (isSprinting) currentSpeed = sprintSpeed;
+        else if (actualSprinting) currentSpeed = sprintSpeed;
 
         Vector3 moveDirection = transform.right * currentMovementInput.x + transform.forward * currentMovementInput.y;
+
 
         // FÍSICAS: Reseteo de gravedad al tocar el piso
         if (controller.isGrounded && velocity.y < 0)
@@ -160,6 +236,7 @@ public class PlayerNewMovement : MonoBehaviour
         float targetCameraY = wantsToCrouch ? crouchCameraY : standingCameraY;
 
         Vector3 targetModelScale = originalVisualScale;
+
         if (wantsToCrouch)
         {
             targetModelScale.y = originalVisualScale.y * crouchScaleFactorY;
@@ -212,5 +289,16 @@ public class PlayerNewMovement : MonoBehaviour
     {
         if (isCrouching && Physics.Raycast(transform.position, Vector3.up, standingHeight, obstacleLayer)) IsHidden = true;
         else IsHidden = false;
+    }
+
+    private void HandleVignette()
+    {
+        if (vignette == null) return;
+
+        // Decidimos cuál es el valor al que queremos llegar
+        float targetVignette = isCrouching ? crouchVignetteIntensity : 0f;
+
+        // Hacemos un Lerp continuo e independiente de la física
+        vignette.intensity.value = Mathf.Lerp(vignette.intensity.value, targetVignette, vignetteFadeSpeed * Time.deltaTime);
     }
 }

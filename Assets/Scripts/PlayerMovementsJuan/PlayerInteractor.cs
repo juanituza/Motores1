@@ -31,6 +31,21 @@ public class PlayerInteractor : MonoBehaviour
         }
     }
 
+    public void FixedUpdate()
+    {
+        Ray ray = playerCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+        if (Physics.Raycast(ray, out RaycastHit hit, interactRange, interactableLayer))
+        {
+            // Si miramos algo interactuable, prende la mano
+            if (hit.collider.GetComponent<IInteractable>() != null)
+            {
+                HUDManager.Instance.SetInteractIcon(true);
+                return;
+            }
+        }
+        // Si no impacta nada o no es interactuable, vuelve al puntito
+        HUDManager.Instance.SetInteractIcon(false);
+    }
     private void PerformInteraction(InputAction.CallbackContext context)
     {
         if (playerCamera == null)
