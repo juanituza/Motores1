@@ -26,9 +26,9 @@ public class PlayerFootsteps : MonoBehaviour
 
     [Header("Detección de Estado")]
     [Tooltip("Si la velocidad supera este número, asume que corre")]
-    [SerializeField] private float sprintSpeedThreshold = 2.5f;
+    [SerializeField] private float sprintSpeedThreshold = 150f;
     [Tooltip("Si la velocidad es menor a este número (pero mayor a 0.1), asume que está agachado")]
-    [SerializeField] private float crouchSpeedThreshold = 1.5f;
+    [SerializeField] private float crouchSpeedThreshold = 90f;
 
     private AudioSource audioSource;
     private float stepTimer;
