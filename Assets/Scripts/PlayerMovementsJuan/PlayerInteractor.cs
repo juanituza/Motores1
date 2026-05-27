@@ -3,27 +3,71 @@ using UnityEngine.InputSystem;
 
 public class PlayerInteractor : MonoBehaviour
 {
-    [SerializeField] private float _interactRange = 13f;
-    [SerializeField] private LayerMask _interactableLayer;
+    [Header("Configuración de Input")]
+    [Tooltip("Arrastrá acá tu acción 'Raycast Interaction' desde el archivo .inputactions")]
+    [SerializeField] private InputActionReference interactAction;
 
-    // Se llama cuando haces click (porque la acción se llama Interact)
-    void OnInteract(InputValue value)
+    [Header("Configuración del Raycast")]
+    [SerializeField] private float interactRange = 3f; // Distancia máxima para interactuar (3 metros es realista)
+    [SerializeField] private LayerMask interactableLayer; // Asegurate de asignar la capa de las puertas/notas acá
+    [SerializeField] private Camera playerCamera; // Referencia directa a la cámara para evitar errores de tags
+
+    private void OnEnable()
     {
-        // Solo ejecutamos la lógica cuando se presiona el botón
-        if (value.isPressed)
+        if (interactAction != null)
         {
-            // Lanzamos el rayo desde el centro de la pantalla
-            Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+            interactAction.action.Enable();
+            interactAction.action.performed += PerformInteraction;
+        }
+    }
 
-            if (Physics.Raycast(ray, out RaycastHit hit, _interactRange, _interactableLayer))
+    private void OnDisable()
+    {
+       
+        if (interactAction != null)
+        {
+            interactAction.action.performed -= PerformInteraction;
+            interactAction.action.Disable();
+        }
+    }
+
+    public void FixedUpdate()
+    {
+        Ray ray = playerCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+        if (Physics.Raycast(ray, out RaycastHit hit, interactRange, interactableLayer))
+        {
+            // Si miramos algo interactuable, prende la mano
+            if (hit.collider.GetComponent<IInteractable>() != null)
             {
-                Debug.Log("Click en: " + hit.collider.name);
+                HUDManager.Instance.SetInteractIcon(true);
+                return;
+            }
+        }
+        // Si no impacta nada o no es interactuable, vuelve al puntito
+        HUDManager.Instance.SetInteractIcon(false);
+    }
+    private void PerformInteraction(InputAction.CallbackContext context)
+    {
+        if (playerCamera == null)
+        {
+            Debug.LogWarning("PlayerInteractor: ¡Te olvidaste de asignar la cámara en el Inspector!");
+            return;
+        }
 
-                IInteractable interactable = hit.collider.GetComponent<IInteractable>();
-                if (interactable != null)
-                {
-                    interactable.Interact();
-                }
+        Ray ray = playerCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+
+        // DIBUJO DE DEBUG
+        Debug.DrawRay(ray.origin, ray.direction * interactRange, Color.red, 2f);
+
+        // Disparamos el Raycas
+        if (Physics.Raycast(ray, out RaycastHit hit, interactRange, interactableLayer))
+        {
+            Debug.Log("El rayo impactó contra: " + hit.collider.name);
+
+            IInteractable interactable = hit.collider.GetComponent<IInteractable>();
+            if (interactable != null)
+            {
+                interactable.Interact();
             }
         }
     }
