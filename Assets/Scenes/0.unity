@@ -99110,13 +99110,12 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 6603158523744340986, guid: 3280b9677a5d6fc449ec110e0d53c2c0, type: 3}
-    - {fileID: 4653553226422315996, guid: 3280b9677a5d6fc449ec110e0d53c2c0, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 8174432386410313609, guid: 3280b9677a5d6fc449ec110e0d53c2c0, type: 3}
-      insertIndex: 1
+      insertIndex: 2
       addedObject: {fileID: 1751019470}
     - targetCorrespondingSourceObject: {fileID: 8174432386410313609, guid: 3280b9677a5d6fc449ec110e0d53c2c0, type: 3}
-      insertIndex: 8
+      insertIndex: 9
       addedObject: {fileID: 859066523}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3280b9677a5d6fc449ec110e0d53c2c0, type: 3}
@@ -99131,22 +99130,6 @@ PrefabInstance:
     - target: {fileID: 1923338991659383501, guid: ebd6212d6df65534b8d01e13c4945621, type: 3}
       propertyPath: m_Name
       value: DiningLight
-      objectReference: {fileID: 0}
-    - target: {fileID: 2066776211277628372, guid: ebd6212d6df65534b8d01e13c4945621, type: 3}
-      propertyPath: m_Type
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2066776211277628372, guid: ebd6212d6df65534b8d01e13c4945621, type: 3}
-      propertyPath: m_Range
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 2066776211277628372, guid: ebd6212d6df65534b8d01e13c4945621, type: 3}
-      propertyPath: m_Intensity
-      value: 1.54
-      objectReference: {fileID: 0}
-    - target: {fileID: 2066776211277628372, guid: ebd6212d6df65534b8d01e13c4945621, type: 3}
-      propertyPath: m_Lightmapping
-      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3665499348879689546, guid: ebd6212d6df65534b8d01e13c4945621, type: 3}
       propertyPath: m_LocalPosition.x
@@ -99187,38 +99170,6 @@ PrefabInstance:
     - target: {fileID: 3665499348879689546, guid: ebd6212d6df65534b8d01e13c4945621, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3884440166332806217, guid: ebd6212d6df65534b8d01e13c4945621, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.034
-      objectReference: {fileID: 0}
-    - target: {fileID: 3884440166332806217, guid: ebd6212d6df65534b8d01e13c4945621, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.092
-      objectReference: {fileID: 0}
-    - target: {fileID: 3884440166332806217, guid: ebd6212d6df65534b8d01e13c4945621, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.111
-      objectReference: {fileID: 0}
-    - target: {fileID: 3884440166332806217, guid: ebd6212d6df65534b8d01e13c4945621, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 3884440166332806217, guid: ebd6212d6df65534b8d01e13c4945621, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 3884440166332806217, guid: ebd6212d6df65534b8d01e13c4945621, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3884440166332806217, guid: ebd6212d6df65534b8d01e13c4945621, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3884440166332806217, guid: ebd6212d6df65534b8d01e13c4945621, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 90
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
