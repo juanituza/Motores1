@@ -9,6 +9,7 @@ TagManager:
   - light tags
   - Door
   - Enemy
+  - bedsideLamp
   layers:
   - Default
   - TransparentFX

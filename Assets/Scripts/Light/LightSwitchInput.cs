@@ -1,29 +1,39 @@
-using LightMaster;
+Ôªøusing LightMaster;
 using UnityEngine;
-
 public class LightSwitchInput : MonoBehaviour
 {
     public LightAction lightAction;
+    [Header("Configuraci√≥n")]
+    public float distanciaMaxima = 4f;
+    public LayerMask capaInteractuable;
 
-    [Header("ConfiguraciÛn de CercanÌa")]
-    public float distanciaMaxima = 2f; // Ajusta esto: m·s pequeÒo = m·s cerca tienes que estar
-    public LayerMask capaInteractuable;  // AquÌ seleccionar·s "Interactable" en el Inspector
+    private SwitchAnimator switchAnimator; // ‚Üê agregamos esto
+
+    void Start()
+    {
+        // Busca el animator pero no explota si no existe
+        switchAnimator = GetComponent<SwitchAnimator>();
+    }
 
     void Update()
     {
-        // 1. Detectar el clic del mouse
         if (Input.GetMouseButtonDown(0))
         {
-            // 2. Lanzar un rayo desde el centro de la pantalla (donde apunta la c·mara)
-            Ray rayo = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+            Ray rayo = Camera.main.ViewportPointToRay(
+                new Vector3(0.5f, 0.5f, 0)
+            );
             RaycastHit hit;
-
-            // 3. Verificar si el rayo toca ALGO dentro de la distancia m·xima
             if (Physics.Raycast(rayo, out hit, distanciaMaxima, capaInteractuable))
             {
-                // 4. Verificar si ese "algo" es ESTE interruptor
-                if (hit.collider.gameObject == gameObject)
+                LightSwitchInput interruptor =
+                    hit.collider.GetComponentInParent<LightSwitchInput>();
+
+                if (interruptor == this)
                 {
+                    // Solo anima si tiene SwitchAnimator
+                    if (switchAnimator != null)
+                        switchAnimator.ToggleSwitch();
+
                     lightAction.PerformAction();
                 }
             }

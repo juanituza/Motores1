@@ -31,19 +31,28 @@ public class PlayerInteractor : MonoBehaviour
         }
     }
 
+    private void Awake()
+    {
+        if (playerCamera == null)
+            playerCamera = Camera.main;
+    }
+
     public void FixedUpdate()
     {
+        if (playerCamera == null || HUDManager.Instance == null)
+            return;
+
         Ray ray = playerCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+
         if (Physics.Raycast(ray, out RaycastHit hit, interactRange, interactableLayer))
         {
-            // Si miramos algo interactuable, prende la mano
             if (hit.collider.GetComponent<IInteractable>() != null)
             {
                 HUDManager.Instance.SetInteractIcon(true);
                 return;
             }
         }
-        // Si no impacta nada o no es interactuable, vuelve al puntito
+
         HUDManager.Instance.SetInteractIcon(false);
     }
     private void PerformInteraction(InputAction.CallbackContext context)

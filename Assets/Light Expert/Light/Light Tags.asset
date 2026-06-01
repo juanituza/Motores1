@@ -14,5 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LightMaster.LightTagsContainer
   Tags:
   - Default
-  - Comedor
-  - Cocina
+  - Living
+  - Room
+  - kitchen
+  - Room1
+  - bedsideLamp
+  - bedsideLamp2
