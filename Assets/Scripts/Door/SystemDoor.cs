@@ -9,9 +9,20 @@ public class SystemDoor : MonoBehaviour, IInteractable
 
     [SerializeField] private AudioClip openDoor;
     [SerializeField] private AudioClip closeDoor;
+   
+    [Header("Sistema de Bloqueo")]
+    [SerializeField] private bool isLocked = false; 
+    [SerializeField] private AudioClip lockedDoorSound; 
+
 
     public void Interact()
     {
+        if (isLocked)
+        {
+            if (lockedDoorSound != null) AudioSource.PlayClipAtPoint(lockedDoorSound, transform.position, 1f);
+            return;
+        }
+
         doorOpen = !doorOpen; 
 
         if (doorOpen)
@@ -22,6 +33,11 @@ public class SystemDoor : MonoBehaviour, IInteractable
         {
             if (closeDoor != null) AudioSource.PlayClipAtPoint(closeDoor, transform.position, 1f);
         }
+    }
+    public void UnlockDoor() // llama a la nota
+    {
+        isLocked = false;
+        Debug.Log("Puerta desbloqueada");
     }
 
     void Update()
