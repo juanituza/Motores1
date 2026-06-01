@@ -73,10 +73,30 @@ public class PlayerInteractor : MonoBehaviour
         {
             Debug.Log("El rayo impactó contra: " + hit.collider.name);
 
-            IInteractable interactable = hit.collider.GetComponent<IInteractable>();
+            IInteractable interactable =
+      hit.collider.GetComponent<IInteractable>();
+
             if (interactable != null)
             {
                 interactable.Interact();
+            }
+
+            // LIGHT SWITCH
+            LightSwitchInput lightSwitch =
+                hit.collider.GetComponentInParent<LightSwitchInput>();
+
+            if (lightSwitch != null)
+            {
+                lightSwitch.Interact();
+            }
+
+            // MAIN POWER SWITCH
+            MainPowerSwitch mainPower =
+                hit.collider.GetComponentInParent<MainPowerSwitch>();
+
+            if (mainPower != null)
+            {
+                mainPower.Interact();
             }
         }
     }
