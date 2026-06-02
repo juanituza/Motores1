@@ -12,6 +12,19 @@ public class PlayerInteractor : MonoBehaviour
     [SerializeField] private LayerMask interactableLayer; // Asegurate de asignar la capa de las puertas/notas acá
     [SerializeField] private Camera playerCamera; // Referencia directa a la cámara para evitar errores de tags
 
+    private void Awake()
+    {
+        // Al instanciarse el Prefab, busca la cámara de la escena automáticamente
+        if (playerCamera == null)
+        {
+            playerCamera = Camera.main;
+
+            if (playerCamera == null)
+            {
+                Debug.LogError("PlayerInteractor: ¡No se encontró ninguna Main Camera en la escena!");
+            }
+        }
+    }
     private void OnEnable()
     {
         if (interactAction != null)
