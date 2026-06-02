@@ -4,7 +4,8 @@ using UnityEngine;
 public class MainPowerSwitch : MonoBehaviour
 {
     [Header("Emergency OFF Actions")]
-    public LightAction[] emergencyOffLights;
+    public Light[] houseLights;
+    public LightSwitchInput[] houseSwitches;
 
     private SwitchAnimator switchAnimator;
 
@@ -33,11 +34,18 @@ public class MainPowerSwitch : MonoBehaviour
         {
             Debug.Log("Power OFF -> Turning off all lights");
 
-            foreach (LightAction action in emergencyOffLights)
+            foreach (Light lightSource in houseLights)
             {
-                if (action != null)
+                if (lightSource != null)
                 {
-                    action.PerformAction();
+                    lightSource.enabled = false;
+                }
+            }
+            foreach (LightSwitchInput lightSwitch in houseSwitches)
+            {
+                if (lightSwitch != null)
+                {
+                    lightSwitch.ForceTurnOff();
                 }
             }
         }

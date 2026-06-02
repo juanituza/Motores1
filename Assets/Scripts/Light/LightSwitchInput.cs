@@ -4,6 +4,7 @@ using UnityEngine;
 public class LightSwitchInput : MonoBehaviour
 {
     public LightAction lightAction;
+    public bool isLightOn = false;
 
     private SwitchAnimator switchAnimator;
 
@@ -30,7 +31,12 @@ public class LightSwitchInput : MonoBehaviour
         // Toggle light
         if (lightAction != null)
         {
+            isLightOn = !isLightOn;
             lightAction.PerformAction();
         }
+    }
+    public void ForceTurnOff()
+    {
+        isLightOn = false;
     }
 }
