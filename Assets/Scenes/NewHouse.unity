@@ -9163,37 +9163,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6180613745046510124, guid: ae9d51f65c4b45c40bf36c4b0c91decc, type: 3}
   m_PrefabInstance: {fileID: 4000032786326473098}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &120744704
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 120744705}
-  m_Layer: 0
-  m_Name: Enemy
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &120744705
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 120744704}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -600.7, y: 0, z: 592.3}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &121674145
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -237219,7 +237188,7 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &1524715018
+--- !u!114 &1524715021
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -237230,12 +237199,12 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 542cee96acbec884bbc6ac645e59272c, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemigoIA
-  estadoActual: 0
-  jugador: {fileID: 1010044927}
-  velocidadPatrulla: 2
-  velocidadPersecucion: 4
-  puntosPatrulla:
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyAI
+  currentState: 0
+  player: {fileID: 1010044927}
+  patrolSpeed: 2
+  chaseSpeed: 4.5
+  patrolWaypoints:
   - {fileID: 1226115242}
   - {fileID: 731123803}
   - {fileID: 391575851}
@@ -237263,19 +237232,19 @@ MonoBehaviour:
   - {fileID: 292810913}
   - {fileID: 1710685695}
   - {fileID: 1682475428}
-  tiempoEsperaMin: 2
-  tiempoEsperaMax: 2
-  rangoVision: 2
-  anguloVision: 61
-  capaJugador:
+  minWaitTime: 2
+  maxWaitTime: 4.5
+  visionRange: 10
+  visionAngle: 60
+  playerLayer:
     serializedVersion: 2
-    m_Bits: 8
-  capaObstaculos:
+    m_Bits: 0
+  obstacleLayer:
     serializedVersion: 2
-    m_Bits: 1
-  rangoOido: 4
-  distanciaAtaque: 1.5
-  tiempoCooldown: 2.5
+    m_Bits: 0
+  hearingRange: 4
+  attackDistance: 1.5
+  cooldownTime: 2.5
 --- !u!1 &1525250266 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2759644772179971507, guid: 611993b14ba6fd44bb4268de5943649e, type: 3}
@@ -267722,6 +267691,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -6057140222963153312, guid: 8f7380da49034cd488ddff94b1ac35d1, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 994c575aaf24f234f8c554942bfd195f, type: 2}
     - target: {fileID: -4216859302048453862, guid: 8f7380da49034cd488ddff94b1ac35d1, type: 3}
       propertyPath: m_LocalPosition.x
       value: -603.856
@@ -267772,10 +267745,10 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: -927199367670048503, guid: 8f7380da49034cd488ddff94b1ac35d1, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1524715018}
+      addedObject: {fileID: 1524715017}
     - targetCorrespondingSourceObject: {fileID: -927199367670048503, guid: 8f7380da49034cd488ddff94b1ac35d1, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1524715017}
+      addedObject: {fileID: 1524715021}
   m_SourcePrefab: {fileID: 100100000, guid: 8f7380da49034cd488ddff94b1ac35d1, type: 3}
 --- !u!1001 &2079140894
 PrefabInstance:
@@ -270106,7 +270079,6 @@ SceneRoots:
   - {fileID: 610648848}
   - {fileID: 1334810157}
   - {fileID: 2075473180}
-  - {fileID: 120744705}
   - {fileID: 1426691264}
   - {fileID: 1698643516}
   - {fileID: 1237774014}
