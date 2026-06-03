@@ -17,7 +17,7 @@ public class SystemDoor : MonoBehaviour, IInteractable
 
     void Start()
     {
-        initialAngle = transform.localEulerAngles.y;
+        //initialAngle = transform.localEulerAngles.y;
     }
 
 

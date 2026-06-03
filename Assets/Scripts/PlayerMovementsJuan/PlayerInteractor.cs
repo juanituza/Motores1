@@ -12,11 +12,6 @@ public class PlayerInteractor : MonoBehaviour
     [SerializeField] private LayerMask interactableLayer;
     [SerializeField] private Camera playerCamera;
 
-    private void Awake()
-    {
-        if (playerCamera == null)
-            playerCamera = Camera.main;
-    }
 
     private void Awake()
     {

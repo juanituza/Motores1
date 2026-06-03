@@ -14,6 +14,8 @@ GameObject:
   - component: {fileID: 5299263425679350550}
   - component: {fileID: 2819450156257277596}
   - component: {fileID: 4474076083496545857}
+  - component: {fileID: 3665565846687074915}
+  - component: {fileID: 4976158487412182156}
   m_Layer: 6
   m_Name: Nota Prefab
   m_TagString: Untagged
@@ -31,7 +33,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 445.9689, y: 33.7124, z: -310.9205}
-  m_LocalScale: {x: 0.1246, y: 0.001, z: 0.147934}
+  m_LocalScale: {x: 0.3, y: 0.01, z: 0.3}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5774386345811694186}
@@ -151,6 +153,36 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   interactionPrompt: {fileID: 1200655396391251927}
   noteCanvas: {fileID: 7238466601263087489}
+  connectionDoors: []
+--- !u!114 &3665565846687074915
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 86243997391168875}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90d553dafbbe94b4db8651007a5587b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NoteUnlocker
+  doorToUnlock: {fileID: 0}
+  noteThought: Mmmhh, debo buscar la cena
+  nextMission: Ve a la cocina
+--- !u!114 &4976158487412182156
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 86243997391168875}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31db449b811faac408e669cd78bee729, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MissionCatalyst
+  nextMission: "Explora la Habitaci\xF3n"
+  disableAfterTrigger: 1
 --- !u!1 &1200655396391251927
 GameObject:
   m_ObjectHideFlags: 0

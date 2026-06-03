@@ -2641,7 +2641,7 @@ Transform:
   m_GameObject: {fileID: 68470068}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.10452846, z: 0, w: 0.9945219}
-  m_LocalPosition: {x: -606.28973, y: 1.79765, z: 588.66064}
+  m_LocalPosition: {x: -605.33673, y: 0.92565, z: 590.1206}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -201265,6 +201265,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PrincipalDoor
       objectReference: {fileID: 0}
+    - target: {fileID: 8059614783455740638, guid: 78cdf2e5f7d202c4d8c8699018f6a291, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: a65bb980fa0633f40949af1443eaf4c9, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -222385,15 +222389,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1875811508559069487, guid: 94128ce41e0c95645a2dca1f85de9019, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -606.36
+      value: -605.407
       objectReference: {fileID: 0}
     - target: {fileID: 1875811508559069487, guid: 94128ce41e0c95645a2dca1f85de9019, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.842
+      value: -0.03
       objectReference: {fileID: 0}
     - target: {fileID: 1875811508559069487, guid: 94128ce41e0c95645a2dca1f85de9019, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 588.33
+      value: 589.79
       objectReference: {fileID: 0}
     - target: {fileID: 1875811508559069487, guid: 94128ce41e0c95645a2dca1f85de9019, type: 3}
       propertyPath: m_LocalRotation.w
