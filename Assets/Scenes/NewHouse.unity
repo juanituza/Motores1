@@ -50418,7 +50418,7 @@ MonoBehaviour:
   obstacleLayer:
     serializedVersion: 2
     m_Bits: 0
-  hearingRange: 4
+  hearingRange: 10
   attackDistance: 1.5
   cooldownTime: 2.5
 --- !u!95 &1524715022
@@ -69643,6 +69643,10 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1010044927}
+    - target: {fileID: 6388138822776292719, guid: 8da4e02cf0474954aac000005e797bab, type: 3}
+      propertyPath: hearingRange
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 6388138822776292719, guid: 8da4e02cf0474954aac000005e797bab, type: 3}
       propertyPath: 'patrolWaypoints.Array.data[0]'
       value: 

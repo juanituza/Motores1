@@ -163,11 +163,20 @@ public class EnemyAI : MonoBehaviour
             ReturnToPatrol();
         }
     }
-
     void ChaseBehavior()
     {
-        agent.speed = chaseSpeed; 
-        agent.destination = player.position; 
+        agent.speed = chaseSpeed;
+        agent.destination = player.position;
+
+        Vector3 directionToPlayer = (player.position - transform.position).normalized;
+        directionToPlayer.y = 0; 
+
+        if (directionToPlayer != Vector3.zero)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(directionToPlayer);
+
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 15f);
+        }
 
         float distanceToPlayer = Vector3.Distance(transform.position, player.position);
 
