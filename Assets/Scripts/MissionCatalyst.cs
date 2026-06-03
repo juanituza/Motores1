@@ -5,7 +5,7 @@ public class MissionCatalyst : MonoBehaviour, IInteractable
 {
     [Header("Configuración de Misión")]
     [Tooltip("El texto de la nueva misión que va a aparecer")]
-    [SerializeField] private string nextMission = "Encuentra una salida...";  
+    [SerializeField] public string nextMission = "Encuentra una salida...";  
 
     [Tooltip("Desactiva este script tras usarlo para no repetir la animación")]
     [SerializeField] private bool disableAfterTrigger = true;

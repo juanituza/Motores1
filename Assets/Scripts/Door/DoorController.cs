@@ -61,7 +61,7 @@ public class DoorController : MonoBehaviour, IInteractable
     public void UnlockDoor()
     {
         isLocked = false;
-        // Opcional: Sonido de cerradura abriéndose
+        
     }
 
     private IEnumerator AnimateDoor()
