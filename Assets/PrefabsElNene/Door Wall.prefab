@@ -155,10 +155,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SystemDoor
   doorOpen: 0
   doorOpenAngle: 95
-  doorCloseAngle: 0
   smooth: 3
+  initialAngle: 0
   openDoor: {fileID: 8300000, guid: f9bad20910564eb4a8a6a67e072c1712, type: 3}
   closeDoor: {fileID: 8300000, guid: 76f4c88a36e48184ba49595b6a482395, type: 3}
+  isLocked: 0
+  lockedDoorSound: {fileID: 0}
 --- !u!1 &1199712821507974354
 GameObject:
   m_ObjectHideFlags: 0

@@ -66,7 +66,7 @@ namespace LightMaster {
 
         [Header("Settings")] // Esto es para que se vea ordenado en el Inspector
                              
-        [SerializeField] public bool startOff = true;
+        [SerializeField] public bool startOff = false;
         [SerializeField] public bool isInteractable = true;
 
         private void Awake() {
@@ -92,7 +92,7 @@ namespace LightMaster {
             {
                 if (startOff)
                 {
-                    _thisLight.enabled = false;
+                    _thisLight.enabled = true;
                 }
                 else
                 {

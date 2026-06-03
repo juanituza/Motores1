@@ -16,3 +16,19 @@ MonoBehaviour:
   - Default
   - Comedor
   - Cocina
+  - DiningTable
+  - DiningWall
+  - DiningWall1
+  - DiningRoof
+  - RoomEntryLight
+  - RoomBedSide1
+  - RoomPCLight
+  - RoomBedLight
+  - RoomBathroomLight
+  - RoomBathroomRoofLight
+  - LivingRoofLight
+  - BathRoomLightRoofPb
+  - BathRoomLampMirror
+  - KitchenRoofLight
+  - RoofLampPassage
+  - RoofLampPassageFLoor1

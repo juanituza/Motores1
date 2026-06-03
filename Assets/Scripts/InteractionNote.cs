@@ -9,6 +9,8 @@ public class InteractionNote : MonoBehaviour
     private bool isPlayerInRange = false;
     private bool isNoteOpen = false;
 
+    
+
     void Start()
     {
         // Nos aseguramos de que todo empiece oculto
@@ -30,6 +32,7 @@ public class InteractionNote : MonoBehaviour
         isNoteOpen = !isNoteOpen;
         noteCanvas.SetActive(isNoteOpen);
 
+        
         // Si abrimos la nota, ocultamos el mensaje de "Press E" para que no moleste
         if (isNoteOpen)
         {

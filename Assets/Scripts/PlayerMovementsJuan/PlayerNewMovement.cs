@@ -89,8 +89,13 @@ public class PlayerNewMovement : MonoBehaviour
         // Llenar stamina
         currentStamina = maxSprintTime;
 
+        if (globalVolume == null)
+        {
+            // Busca cualquier objeto en la escena que tenga el componente Volume
+            globalVolume = FindAnyObjectByType<Volume>();
+        }
         // Capturar la viñeta
-        if (globalVolume && globalVolume.profile.TryGet(out Vignette v))
+        if (globalVolume != null && globalVolume.profile.TryGet(out Vignette v))
         {
             vignette = v;
         }

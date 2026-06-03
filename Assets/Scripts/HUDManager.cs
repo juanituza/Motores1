@@ -74,4 +74,33 @@ public class HUDManager : MonoBehaviour
 
         ephemeralText.CrossFadeAlpha(0f, 1f, false);   // Desaparece suave
     }
+    // Llamamos a este método desde cualquier objeto para lanzar la animación
+    public void UpdateMissionAnimated(string newMission)
+    {
+        // Detenemos cualquier transición previa por seguridad
+        StopCoroutine(nameof(MissionTransitionRoutine));
+        StartCoroutine(MissionTransitionRoutine(newMission));
+    }
+
+    private IEnumerator MissionTransitionRoutine(string newMission)
+    {
+        // 1. Tachamos la misión actual (Usando Rich Text de TextMeshPro)
+        string currentText = missionText.text;
+
+        // Evitamos tachar si la misión anterior estaba vacía
+        if (!string.IsNullOrEmpty(currentText))
+        {
+            missionText.text = $"<s>{currentText}</s>";
+            // 2. Esperamos 2 segundos para que el jugador vea que la completó
+            yield return new WaitForSeconds(2f);
+        }
+
+        // 3. Desvanecemos el texto viejo suavemente
+        missionText.CrossFadeAlpha(0f, 0.5f, false);
+        yield return new WaitForSeconds(0.5f);
+
+        // 4. Escribimos la nueva misión y la hacemos aparecer suavemente
+        missionText.text = newMission;
+        missionText.CrossFadeAlpha(1f, 0.5f, false);
+    }
 }
