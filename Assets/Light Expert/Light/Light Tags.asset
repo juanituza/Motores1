@@ -29,3 +29,6 @@ MonoBehaviour:
   - LivingRoofLight
   - BathRoomLightRoofPb
   - BathRoomLampMirror
+  - KitchenRoofLight
+  - RoofLampPassage
+  - RoofLampPassageFLoor1
