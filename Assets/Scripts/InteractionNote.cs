@@ -9,6 +9,9 @@ public class InteractionNote : MonoBehaviour
     private bool isPlayerInRange = false;
     private bool isNoteOpen = false;
 
+    [Header("Puerta a Desbloquear")]
+    [SerializeField] private SystemDoor[] connectionDoors;
+
     void Start()
     {
         // Nos aseguramos de que todo empiece oculto
@@ -30,6 +33,18 @@ public class InteractionNote : MonoBehaviour
         isNoteOpen = !isNoteOpen;
         noteCanvas.SetActive(isNoteOpen);
 
+        if (isNoteOpen && connectionDoors != null && connectionDoors.Length > 0)
+        {
+            foreach (SystemDoor puerta in connectionDoors)
+            {
+                if (puerta != null)
+                {
+                    puerta.UnlockDoor();
+                }
+            }
+            
+            connectionDoors = new SystemDoor[0];
+        }
         // Si abrimos la nota, ocultamos el mensaje de "Press E" para que no moleste
         if (isNoteOpen)
         {
