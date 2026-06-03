@@ -7,6 +7,9 @@ public class MainPowerSwitch : MonoBehaviour
     public Light[] houseLights;
     public LightSwitchInput[] houseSwitches;
 
+    [Header("Audio")]
+    public AudioSource blackoutAudio;
+
     private SwitchAnimator switchAnimator;
 
     void Start()
@@ -34,6 +37,11 @@ public class MainPowerSwitch : MonoBehaviour
         {
             Debug.Log("Power OFF -> Turning off all lights");
 
+            if (blackoutAudio != null)
+            {
+                blackoutAudio.Play();
+            }
+
             foreach (Light lightSource in houseLights)
             {
                 if (lightSource != null)
@@ -48,6 +56,16 @@ public class MainPowerSwitch : MonoBehaviour
                     lightSwitch.ForceTurnOff();
                 }
             }
+        }
+
+    }
+
+    // Podés agregar esto debajo de tu método Interact()
+    public void ForceBlackout()
+    {
+        if (EnergyManager.powerEnabled == true)
+        {
+            Interact(); // Solo baja la palanca si la luz estaba prendida
         }
     }
 }
