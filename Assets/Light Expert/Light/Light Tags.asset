@@ -25,3 +25,7 @@ MonoBehaviour:
   - RoomPCLight
   - RoomBedLight
   - RoomBathroomLight
+  - RoomBathroomRoofLight
+  - LivingRoofLight
+  - BathRoomLightRoofPb
+  - BathRoomLampMirror
