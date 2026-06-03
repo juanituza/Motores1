@@ -31051,60 +31051,8 @@ MonoBehaviour:
   m_VersionIndex: 33408
   m_IsSelectable: 1
   m_SelectedFaces: 
-  m_SelectedEdges:
-  - a: 213
-    b: 215
-  - a: 51
-    b: 48
-  - a: 204
-    b: 205
-  - a: 205
-    b: 208
-  - a: 54
-    b: 51
-  - a: 208
-    b: 199
-  - a: 55
-    b: 54
-  - a: 199
-    b: 201
-  - a: 59
-    b: 55
-  - a: 201
-    b: 217
-  - a: 89
-    b: 59
-  - a: 217
-    b: 219
-  - a: 91
-    b: 89
-  - a: 93
-    b: 91
-  - a: 219
-    b: 213
-  - a: 95
-    b: 93
-  - a: 97
-    b: 95
-  - a: 215
-    b: 350
-  - a: 99
-    b: 97
-  - a: 350
-    b: 352
-  - a: 101
-    b: 99
-  - a: 352
-    b: 346
-  - a: 103
-    b: 101
-  - a: 346
-    b: 348
-  - a: 137
-    b: 103
-  - a: 348
-    b: 364
-  m_SelectedVertices: d5000000d70000003300000030000000cc000000cd000000cd000000d00000003600000033000000d0000000c70000003700000036000000c7000000c90000003b00000037000000c9000000d9000000590000003b000000d9000000db0000005b000000590000005d0000005b000000db000000d50000005f0000005d000000610000005f000000d70000005e01000063000000610000005e010000600100006500000063000000600100005a01000067000000650000005a0100005c01000089000000670000005c0100006c010000
+  m_SelectedEdges: []
+  m_SelectedVertices: 
 --- !u!4 &358419054
 Transform:
   m_ObjectHideFlags: 0
@@ -254611,7 +254559,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 681850394343239100, guid: da3df1297d03bea4abeae2955ab35b07, type: 3}
       propertyPath: m_Name
-      value: NEWDoor (1)
+      value: NEWDoor Entrada ppal
       objectReference: {fileID: 0}
     - target: {fileID: 7448580028301193585, guid: da3df1297d03bea4abeae2955ab35b07, type: 3}
       propertyPath: m_LocalPosition.x
