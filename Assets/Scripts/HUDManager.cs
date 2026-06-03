@@ -19,6 +19,8 @@ public class HUDManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI ephemeralText;
     [SerializeField] private TextMeshProUGUI missionText;
 
+    [Header("Eventos Especiales")]
+    [SerializeField] private TextMeshProUGUI timerText; // Arrastrá un nuevo texto de tu Canvas acá
     // TODO: Implementar UI de batería cuando tengamos la linterna
     // [SerializeField] private Image batteryBar; 
 
@@ -31,6 +33,8 @@ public class HUDManager : MonoBehaviour
         // Limpiamos los textos al arrancar
         ephemeralText.text = "";
         ephemeralText.canvasRenderer.SetAlpha(0f);
+
+        timerText.text = "";
     }
 
     // --- MÉTODOS PARA LLAMAR DESDE OTROS SCRIPTS ---
@@ -102,5 +106,16 @@ public class HUDManager : MonoBehaviour
         // 4. Escribimos la nueva misión y la hacemos aparecer suavemente
         missionText.text = newMission;
         missionText.CrossFadeAlpha(1f, 0.5f, false);
+    }
+
+    public void UpdateTimerDisplay(int seconds)
+    {
+        // Formato para que se vea como reloj digital (ej: 00:15)
+        timerText.text = $"00:{seconds:D2}";
+    }
+
+    public void HideTimerDisplay()
+    {
+        timerText.text = "";
     }
 }
