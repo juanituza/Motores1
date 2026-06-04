@@ -5,55 +5,75 @@ using UnityEngine.AI;
 
 public class EnemyAI : MonoBehaviour
 {
-    public enum EnemyState { Patrolling, Investigating, Chasing, Cooldown }
+    public enum EnemyState { Patrolling, Chasing, Cooldown }
+    [Header("States")]
     public EnemyState currentState = EnemyState.Patrolling;
 
+    [Header("Components")]
     private NavMeshAgent agent;
+    private Animator anim;
     public Transform player;
+
+    [Header("Patrol")]
     public float patrolSpeed = 2f;
     public float chaseSpeed = 4.5f;
     public List<Transform> patrolWaypoints;
     private int currentWaypointIndex = 0;
     private bool movingForward = true;
     private bool isWaitingAtWaypoint = false;
+
+    [Header("Pause")]
     public float minWaitTime = 2f;
-    public float maxWaitTime = 2f;
-    public float visionRange = 10f;
-    public float visionAngle = 60f;
-    public LayerMask playerLayer;
-    public LayerMask obstacleLayer;
+    public float maxWaitTime = 4.5f;
 
+    [Header("Range")]
     public float hearingRange = 5f;
-    private Vector3 noisePosition;
 
+    [Header("Attack")]
     public float attackDistance = 1.5f;
     public float cooldownTime = 2.5f;
     private bool isSustainingCooldown = false;
 
+    [Header("EscapeSystem")]
+    public float maxChaseTimeWithoutNoise = 1f;
+    private float currentChaseTimer = 0f;
+
+    [Header("Stalker")]
+    public List<Transform> spawnPoints;
+    public float maxDistanceToTeleport = 25f;
+    public float minSpawnDistance = 8f;
+    private float teleportCheckTimer = 0f;
+    private float timeBetweenChecks = 2f;
+
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
-        if (patrolWaypoints.Count > 0)
+        anim = GetComponent<Animator>();
+
+        if (agent != null)
+        {
+            agent.updateRotation = false;
+            agent.updatePosition = true;
+        }
+
+        if (anim != null) anim.applyRootMotion = false;
+
+        if (patrolWaypoints.Count > 0 && agent != null && agent.enabled)
             agent.destination = patrolWaypoints[currentWaypointIndex].position;
     }
 
     void Update()
     {
         if (isSustainingCooldown) return;
-        EvaluateVision();
 
-        if (currentState != EnemyState.Chasing)
-        {
-            HearingDetection();
-        }
+        HearingDetection();
+
+        CheckPlayerDistanceAndTeleport();
+
         switch (currentState)
         {
             case EnemyState.Patrolling:
                 PatrolBehavior();
-                break;
-
-            case EnemyState.Investigating:
-                InvestigationBehavior();
                 break;
 
             case EnemyState.Chasing:
@@ -64,27 +84,70 @@ public class EnemyAI : MonoBehaviour
         ControlAnimations();
     }
 
-    void EvaluateVision()
+    void PatrolBehavior()
     {
-        Vector3 directionToPlayer = (player.position - transform.position).normalized;
-        float distanceToPlayer = Vector3.Distance(transform.position, player.position);
+        if (isWaitingAtWaypoint || patrolWaypoints.Count == 0) return;
 
-        if (distanceToPlayer <= visionRange)
+        agent.isStopped = false;
+        agent.speed = patrolSpeed;
+
+        Vector3 nextPathPoint = agent.steeringTarget - transform.position;
+        nextPathPoint.y = 0;
+        if (nextPathPoint.magnitude > 0.1f)
         {
-            if (Vector3.Angle(transform.forward, directionToPlayer) < visionAngle / 2)
-            {
-                if (!Physics.Raycast(transform.position + Vector3.up, directionToPlayer, distanceToPlayer, obstacleLayer))
-                {
-                    if (currentState != EnemyState.Chasing)
-                    {
-                        TriggerChase();
-                    }
-                    return; 
-                }
-            }
+            Quaternion targetRotation = Quaternion.LookRotation(nextPathPoint);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 6f);
         }
 
-        if (currentState == EnemyState.Chasing && distanceToPlayer > visionRange)
+        float distanceToWaypoint = Vector3.Distance(transform.position, patrolWaypoints[currentWaypointIndex].position);
+
+        if (!agent.pathPending && distanceToWaypoint < 0.8f)
+        {
+            StartCoroutine(WaitAndInvestigateWaypoint());
+        }
+    }
+
+    void ChaseBehavior()
+    {
+        agent.isStopped = false;
+        agent.speed = chaseSpeed;
+        agent.destination = player.position;
+
+        Vector3 nextPathPoint = agent.steeringTarget - transform.position;
+        nextPathPoint.y = 0;
+        if (nextPathPoint.magnitude > 0.1f)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(nextPathPoint);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 35f);
+        }
+
+        //Logica de escape por ruido
+        float distanceToPlayer = Vector3.Distance(transform.position, player.position);
+        bool playerIsMakingNoise = Input.GetKey(KeyCode.LeftShift) && (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0);
+
+        if (!playerIsMakingNoise || distanceToPlayer > hearingRange)
+        {
+            currentChaseTimer += Time.deltaTime;
+
+            if (currentChaseTimer >= maxChaseTimeWithoutNoise)
+            {
+                Debug.Log("El zombie ciego perdió el rastro acústico.");
+                ReturnToPatrol();
+                return;
+            }
+        }
+        else
+        {
+            currentChaseTimer = 0f;
+        }
+
+        if (distanceToPlayer <= attackDistance)
+        {
+            StartCoroutine(PerformAttack());
+            return;
+        }
+
+        if (distanceToPlayer > maxDistanceToTeleport / 1.5f)
         {
             ReturnToPatrol();
         }
@@ -92,8 +155,6 @@ public class EnemyAI : MonoBehaviour
 
     void HearingDetection()
     {
-        if (currentState == EnemyState.Chasing) return;
-
         float distanceToPlayer = Vector3.Distance(transform.position, player.position);
 
         bool playerIsMakingNoise = false;
@@ -102,11 +163,22 @@ public class EnemyAI : MonoBehaviour
             playerIsMakingNoise = true;
         }
 
-        if (distanceToPlayer <= hearingRange && playerIsMakingNoise)
+        if (currentState == EnemyState.Chasing)
         {
-            TriggerChase();
+            if (distanceToPlayer <= hearingRange && playerIsMakingNoise)
+            {
+                currentChaseTimer = 0f;
+            }
+        }
+        else if (currentState == EnemyState.Patrolling)
+        {
+            if (distanceToPlayer <= hearingRange && playerIsMakingNoise)
+            {
+                TriggerChase();
+            }
         }
     }
+
     void TriggerChase()
     {
         if (isWaitingAtWaypoint)
@@ -114,103 +186,63 @@ public class EnemyAI : MonoBehaviour
             StopAllCoroutines();
             isWaitingAtWaypoint = false;
         }
-
-        agent.isStopped = false;
-        agent.speed = chaseSpeed;
         currentState = EnemyState.Chasing;
-    }
-
-    void TriggerInvestigation()
-    {
-        if (isWaitingAtWaypoint)
-        {
-            StopAllCoroutines();
-            isWaitingAtWaypoint = false;
-        }
-        agent.isStopped = false;
-        agent.speed = patrolSpeed;
-        currentState = EnemyState.Investigating;
-        agent.destination = noisePosition;
-    }
-
-    void PatrolBehavior()
-    {
-        if (isWaitingAtWaypoint) return;
-        agent.speed = patrolSpeed;
-
-        if (!agent.pathPending && agent.remainingDistance < 0.5f)
-        {
-            StartCoroutine(WaitAndInvestigateWaypoint());
-        }
-    }
-
-    void InvestigationBehavior()
-    {
-        agent.speed = patrolSpeed;
-        if (!agent.pathPending && agent.remainingDistance < 0.6f)
-        {
-            StartCoroutine(FinishInvestigation());
-        }
-    }
-
-    IEnumerator FinishInvestigation()
-    {
-        agent.isStopped = true;
-        yield return new WaitForSeconds(2.5f);
-        if (currentState == EnemyState.Investigating)
-        {
-            agent.isStopped = false;
-            ReturnToPatrol();
-        }
-    }
-    void ChaseBehavior()
-    {
-        agent.speed = chaseSpeed;
-        agent.destination = player.position;
-
-        Vector3 directionToPlayer = (player.position - transform.position).normalized;
-        directionToPlayer.y = 0; 
-
-        if (directionToPlayer != Vector3.zero)
-        {
-            Quaternion targetRotation = Quaternion.LookRotation(directionToPlayer);
-
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 15f);
-        }
-
-        float distanceToPlayer = Vector3.Distance(transform.position, player.position);
-
-        if (distanceToPlayer <= attackDistance)
-        {
-            StartCoroutine(PerformAttack());
-        }
+        currentChaseTimer = 0f;
     }
 
     IEnumerator PerformAttack()
     {
         isSustainingCooldown = true;
         currentState = EnemyState.Cooldown;
-        agent.isStopped = true;
 
-        Debug.Log("hit");
+        agent.isStopped = true;
+        agent.velocity = Vector3.zero;
+
+        if (anim != null)
+        {
+            anim.SetFloat("currentSpeed", 0f);
+            anim.SetTrigger("hit");
+        }
+
         PlayerHealth playerHealth = player.GetComponent<PlayerHealth>();
         if (playerHealth != null)
         {
             playerHealth.TakeHit(transform.position);
         }
 
-
         yield return new WaitForSeconds(cooldownTime);
 
-        agent.isStopped = false;
         isSustainingCooldown = false;
-        ReturnToPatrol();
+
+        float distanceToPlayer = Vector3.Distance(transform.position, player.position);
+        bool playerIsRunningAway = Input.GetKey(KeyCode.LeftShift) && (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0);
+
+        if (distanceToPlayer <= hearingRange && playerIsRunningAway)
+        {
+            currentState = EnemyState.Chasing;
+            agent.speed = chaseSpeed;
+            if (anim != null) anim.SetFloat("currentSpeed", chaseSpeed);
+            currentChaseTimer = 0f;
+        }
+        else
+        {
+            ReturnToPatrol();
+            if (anim != null) anim.SetFloat("currentSpeed", patrolSpeed);
+        }
     }
 
     void ReturnToPatrol()
     {
         currentState = EnemyState.Patrolling;
-        if (patrolWaypoints.Count > 0)
+        currentChaseTimer = 0f;
+
+        if (agent != null && agent.enabled)
+        {
+            agent.ResetPath();
+            agent.velocity = Vector3.zero;
+        }
+
+        if (patrolWaypoints.Count > 0 && agent != null && agent.enabled)
         {
             agent.destination = patrolWaypoints[currentWaypointIndex].position;
         }
@@ -220,6 +252,7 @@ public class EnemyAI : MonoBehaviour
     {
         isWaitingAtWaypoint = true;
         agent.isStopped = true;
+        agent.velocity = Vector3.zero;
         yield return new WaitForSeconds(Random.Range(minWaitTime, maxWaitTime));
 
         if (currentState != EnemyState.Patrolling)
@@ -229,9 +262,8 @@ public class EnemyAI : MonoBehaviour
         }
 
         CalculateNextIndex();
-        if (patrolWaypoints.Count > 0)
+        if (patrolWaypoints.Count > 0 && agent != null && agent.enabled)
         {
-            agent.isStopped = false;
             agent.destination = patrolWaypoints[currentWaypointIndex].position;
         }
         isWaitingAtWaypoint = false;
@@ -260,27 +292,92 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
+    void CheckPlayerDistanceAndTeleport()
+    {
+        if (currentState == EnemyState.Chasing || currentState == EnemyState.Cooldown) return;
+
+        teleportCheckTimer += Time.deltaTime;
+        if (teleportCheckTimer >= timeBetweenChecks)
+        {
+            teleportCheckTimer = 0f;
+            float currentDistanceToPlayer = Vector3.Distance(transform.position, player.position);
+
+            if (currentDistanceToPlayer >= maxDistanceToTeleport)
+            {
+                TeleportCloserToPlayer();
+            }
+        }
+    }
+
+    void TeleportCloserToPlayer()
+    {
+        Transform bestSpawnPoint = null;
+        float closestDistanceToPlayer = Mathf.Infinity;
+
+        foreach (Transform spawnPoint in spawnPoints)
+        {
+            if (spawnPoint == null) continue;
+            float distanceToPlayer = Vector3.Distance(spawnPoint.position, player.position);
+
+            if (distanceToPlayer >= minSpawnDistance && distanceToPlayer < closestDistanceToPlayer)
+            {
+                closestDistanceToPlayer = distanceToPlayer;
+                bestSpawnPoint = spawnPoint;
+            }
+        }
+
+        if (bestSpawnPoint != null)
+        {
+            agent.enabled = false;
+            transform.position = bestSpawnPoint.position;
+            transform.rotation = bestSpawnPoint.rotation;
+            agent.enabled = true;
+
+            FindClosestPatrolWaypointAfterTeleport();
+        }
+    }
+
+    void FindClosestPatrolWaypointAfterTeleport()
+    {
+        if (patrolWaypoints.Count == 0) return;
+        int closestIndex = 0;
+        float closestDistance = Mathf.Infinity;
+
+        for (int i = 0; i < patrolWaypoints.Count; i++)
+        {
+            float dist = Vector3.Distance(transform.position, patrolWaypoints[i].position);
+            if (dist < closestDistance)
+            {
+                closestDistance = dist;
+                closestIndex = i;
+            }
+        }
+
+        currentWaypointIndex = closestIndex;
+        isWaitingAtWaypoint = false;
+        agent.destination = patrolWaypoints[currentWaypointIndex].position;
+    }
+
     void ControlAnimations()
     {
-        Animator anim = GetComponent<Animator>();
         if (anim != null)
         {
             float targetSpeedForAnimator = 0f;
 
-            if (currentState == EnemyState.Patrolling || currentState == EnemyState.Investigating)
+            if (currentState == EnemyState.Patrolling)
             {
-                targetSpeedForAnimator = (agent.isStopped) ? 0f : patrolSpeed; 
+                targetSpeedForAnimator = (isWaitingAtWaypoint) ? 0f : patrolSpeed;
             }
             else if (currentState == EnemyState.Chasing)
             {
-                targetSpeedForAnimator = chaseSpeed; 
+                targetSpeedForAnimator = chaseSpeed;
             }
 
             float currentAnimatorSpeed = anim.GetFloat("currentSpeed");
-            float smoothedSpeed = Mathf.MoveTowards(currentAnimatorSpeed, targetSpeedForAnimator, Time.deltaTime * 8f); 
+            float smoothedSpeed = Mathf.MoveTowards(currentAnimatorSpeed, targetSpeedForAnimator, Time.deltaTime * 15f);
 
             anim.SetFloat("currentSpeed", smoothedSpeed);
-            anim.SetBool("isWaiting", agent.isStopped && currentState != EnemyState.Cooldown);
+            anim.SetBool("isWaiting", isWaitingAtWaypoint && currentState != EnemyState.Cooldown);
             anim.SetBool("isCoolingDown", isSustainingCooldown);
         }
     }
@@ -289,7 +386,5 @@ public class EnemyAI : MonoBehaviour
     {
         Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(transform.position, hearingRange);
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, visionRange);
     }
 }
