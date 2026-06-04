@@ -49,6 +49,15 @@ public class EnemyAI : MonoBehaviour
     public AudioSource footstepsAudioSource;
     public AudioClip footstepSound;
 
+
+    [Header("Door Interaction")]
+    public float interactRange = 3f;
+    public LayerMask interactableLayer;
+    public Transform rayOrigin;
+    public float doorCooldown = 2f;
+    public float waitingForTheDoor = 1.2f;
+    private float nextInteractTime = 0f;
+    [HideInInspector] public bool isWaitingForDoor = false; // evita conflicto
     void Start()
     {
         GameObject targetPlayer = GameObject.FindWithTag("Player");
@@ -82,6 +91,9 @@ public class EnemyAI : MonoBehaviour
         }
 
         if (isSustainingCooldown) return;
+
+        CheckForDoors(); // Al abrir una puerta, ignora la persecucion
+        if (isWaitingForDoor) return;
 
         HearingDetection();
 
@@ -427,5 +439,40 @@ public class EnemyAI : MonoBehaviour
     {
         Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(transform.position, hearingRange);
+    }
+    // A partir de aca logica de puertas
+    private void CheckForDoors()
+    {
+        if (Time.time < nextInteractTime) return;
+
+        Vector3 origin = rayOrigin != null ? rayOrigin.position : transform.position;
+        Vector3 direction = transform.forward;
+
+        if (Physics.Raycast(origin, direction, out RaycastHit hit, interactRange, interactableLayer))
+        {
+            SystemDoor puerta = hit.collider.GetComponent<SystemDoor>();
+            if (puerta != null)
+            {
+                puerta.Interact();
+                nextInteractTime = Time.time + doorCooldown;
+                StartCoroutine(WaitAtDoorRoutine());
+            }
+        }
+    }
+    private IEnumerator WaitAtDoorRoutine()
+    {
+        isWaitingForDoor = true; // Bloquea la funcion update
+        agent.isStopped = true;
+        agent.velocity = Vector3.zero;
+
+        if (anim != null)
+        {
+            anim.SetFloat("currentSpeed", 0f); // Frena la animación
+        }
+
+        yield return new WaitForSeconds(waitingForTheDoor);
+
+        agent.isStopped = false;
+        isWaitingForDoor = false; 
     }
 }
