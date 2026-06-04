@@ -32,3 +32,10 @@ MonoBehaviour:
   - KitchenRoofLight
   - RoofLampPassage
   - RoofLampPassageFLoor1
+  - PedestalLamp
+  - RoomPrincipalLampRoof
+  - RoomPrincipalBedSide1
+  - RoomPrincipalBedSide2
+  - RoofLampPassage2FLoor1
+  - BalconLamp
+  - LaundryLamp
