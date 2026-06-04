@@ -34,7 +34,7 @@ public class EnemyAI : MonoBehaviour
     public float cooldownTime = 2.5f;
     private bool isSustainingCooldown = false;
 
-    [Header("EscapeSystem")]
+    [Header("Escape System")]
     public float maxChaseTimeWithoutNoise = 1f;
     private float currentChaseTimer = 0f;
 
@@ -45,8 +45,18 @@ public class EnemyAI : MonoBehaviour
     private float teleportCheckTimer = 0f;
     private float timeBetweenChecks = 2f;
 
+    [Header("Audio System")]
+    public AudioSource footstepsAudioSource;
+    public AudioClip footstepSound;
+
     void Start()
     {
+        GameObject targetPlayer = GameObject.FindWithTag("Player");
+        if (targetPlayer != null)
+        {
+            player = targetPlayer.transform;
+        }
+
         agent = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
 
@@ -64,6 +74,13 @@ public class EnemyAI : MonoBehaviour
 
     void Update()
     {
+        if (player == null)
+        {
+            GameObject targetPlayer = GameObject.FindWithTag("Player");
+            if (targetPlayer != null) player = targetPlayer.transform;
+            return;
+        }
+
         if (isSustainingCooldown) return;
 
         HearingDetection();
@@ -121,7 +138,6 @@ public class EnemyAI : MonoBehaviour
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 35f);
         }
 
-        //Logica de escape por ruido
         float distanceToPlayer = Vector3.Distance(transform.position, player.position);
         bool playerIsMakingNoise = Input.GetKey(KeyCode.LeftShift) && (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0);
 
@@ -192,6 +208,15 @@ public class EnemyAI : MonoBehaviour
 
     IEnumerator PerformAttack()
     {
+        if (player == null) yield break;
+
+        float realDistance = Vector3.Distance(transform.position, player.position);
+        if (realDistance > attackDistance + 0.5f)
+        {
+            ReturnToPatrol();
+            yield break;
+        }
+
         isSustainingCooldown = true;
         currentState = EnemyState.Cooldown;
 
@@ -204,30 +229,31 @@ public class EnemyAI : MonoBehaviour
             anim.SetTrigger("hit");
         }
 
-        PlayerHealth playerHealth = player.GetComponent<PlayerHealth>();
-        if (playerHealth != null)
-        {
-            playerHealth.TakeHit(transform.position);
-        }
-
         yield return new WaitForSeconds(cooldownTime);
 
         isSustainingCooldown = false;
 
-        float distanceToPlayer = Vector3.Distance(transform.position, player.position);
-        bool playerIsRunningAway = Input.GetKey(KeyCode.LeftShift) && (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0);
-
-        if (distanceToPlayer <= hearingRange && playerIsRunningAway)
+        if (player != null)
         {
-            currentState = EnemyState.Chasing;
-            agent.speed = chaseSpeed;
-            if (anim != null) anim.SetFloat("currentSpeed", chaseSpeed);
-            currentChaseTimer = 0f;
+            float distanceToPlayer = Vector3.Distance(transform.position, player.position);
+            bool playerIsRunningAway = Input.GetKey(KeyCode.LeftShift) && (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0);
+
+            if (distanceToPlayer <= hearingRange && playerIsRunningAway)
+            {
+                currentState = EnemyState.Chasing;
+                agent.speed = chaseSpeed;
+                if (anim != null) anim.SetFloat("currentSpeed", chaseSpeed);
+                currentChaseTimer = 0f;
+            }
+            else
+            {
+                ReturnToPatrol();
+                if (anim != null) anim.SetFloat("currentSpeed", patrolSpeed);
+            }
         }
         else
         {
             ReturnToPatrol();
-            if (anim != null) anim.SetFloat("currentSpeed", patrolSpeed);
         }
     }
 
@@ -300,7 +326,14 @@ public class EnemyAI : MonoBehaviour
         if (teleportCheckTimer >= timeBetweenChecks)
         {
             teleportCheckTimer = 0f;
-            float currentDistanceToPlayer = Vector3.Distance(transform.position, player.position);
+
+            Vector3 playerPositionAtSameHeight = new Vector3(player.position.x, transform.position.y, player.position.z);
+            float currentDistanceToPlayer = Vector3.Distance(transform.position, playerPositionAtSameHeight);
+
+            if (currentDistanceToPlayer < 10f)
+            {
+                return;
+            }
 
             if (currentDistanceToPlayer >= maxDistanceToTeleport)
             {
@@ -379,6 +412,14 @@ public class EnemyAI : MonoBehaviour
             anim.SetFloat("currentSpeed", smoothedSpeed);
             anim.SetBool("isWaiting", isWaitingAtWaypoint && currentState != EnemyState.Cooldown);
             anim.SetBool("isCoolingDown", isSustainingCooldown);
+        }
+    }
+
+    public void PlayFootstep()
+    {
+        if (footstepsAudioSource != null && footstepSound != null && agent.isStopped == false)
+        {
+            footstepsAudioSource.PlayOneShot(footstepSound);
         }
     }
 

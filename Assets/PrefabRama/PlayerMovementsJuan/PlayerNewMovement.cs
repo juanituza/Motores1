@@ -193,7 +193,7 @@ public class PlayerNewMovement : MonoBehaviour
                 isExhausted = false;
             }
         }
-    
+
 
         if (HUDManager.Instance != null)
         {
