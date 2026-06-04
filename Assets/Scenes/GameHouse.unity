@@ -11555,7 +11555,7 @@ MonoBehaviour:
   m_text: RESUME
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c4a0c24244d67844ea3ab0fe2f0cebe2, type: 2}
-  m_sharedMaterial: {fileID: -7345722058167277009, guid: c4a0c24244d67844ea3ab0fe2f0cebe2, type: 2}
+  m_sharedMaterial: {fileID: -7324435747847303468, guid: c4a0c24244d67844ea3ab0fe2f0cebe2, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -46144,23 +46144,12 @@ PrefabInstance:
     - target: {fileID: 9060231294766523326, guid: 7db96806c54e009468c3bad2fb401096, type: 3}
       propertyPath: timerText
       value: 
-      objectReference: {fileID: 610648849}
+      objectReference: {fileID: 1191463625}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7db96806c54e009468c3bad2fb401096, type: 3}
---- !u!114 &610648849 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7325903661266190627, guid: 7db96806c54e009468c3bad2fb401096, type: 3}
-  m_PrefabInstance: {fileID: 610648848}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!1 &616190336 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8446504883752199553, guid: 43f60905ebbbd0942abf52833f992e8d, type: 3}
@@ -186132,7 +186121,7 @@ MonoBehaviour:
   m_text: 'PAUSE '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c4a0c24244d67844ea3ab0fe2f0cebe2, type: 2}
-  m_sharedMaterial: {fileID: -7345722058167277009, guid: c4a0c24244d67844ea3ab0fe2f0cebe2, type: 2}
+  m_sharedMaterial: {fileID: -7324435747847303468, guid: c4a0c24244d67844ea3ab0fe2f0cebe2, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -209671,6 +209660,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3527188570726820657, guid: 7cfb33b313087e542b4875da97293bea, type: 3}
   m_PrefabInstance: {fileID: 1190079345}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1191463625 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7325903661266190627, guid: 7db96806c54e009468c3bad2fb401096, type: 3}
+  m_PrefabInstance: {fileID: 610648848}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!1001 &1194426292
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -237983,7 +237983,7 @@ MonoBehaviour:
   m_text: MENU
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c4a0c24244d67844ea3ab0fe2f0cebe2, type: 2}
-  m_sharedMaterial: {fileID: -7345722058167277009, guid: c4a0c24244d67844ea3ab0fe2f0cebe2, type: 2}
+  m_sharedMaterial: {fileID: -7324435747847303468, guid: c4a0c24244d67844ea3ab0fe2f0cebe2, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -272259,7 +272259,7 @@ PrefabInstance:
       objectReference: {fileID: 2021505964}
     - target: {fileID: 6368115062180789070, guid: dc8856d957d8d9d42b62728c1b38731e, type: 3}
       propertyPath: m_VersionIndex
-      value: 33615
+      value: 33618
       objectReference: {fileID: 0}
     - target: {fileID: 6453753168564309116, guid: dc8856d957d8d9d42b62728c1b38731e, type: 3}
       propertyPath: m_Mesh
@@ -272332,7 +272332,7 @@ PrefabInstance:
       objectReference: {fileID: 98875756}
     - target: {fileID: 1724603555356897467, guid: 52cd3934d53c82649bb046d7750e71d3, type: 3}
       propertyPath: m_VersionIndex
-      value: 33266
+      value: 33269
       objectReference: {fileID: 0}
     - target: {fileID: 2092537289721622970, guid: 52cd3934d53c82649bb046d7750e71d3, type: 3}
       propertyPath: m_Mesh
