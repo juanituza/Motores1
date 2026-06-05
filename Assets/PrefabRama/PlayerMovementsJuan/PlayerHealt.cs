@@ -7,6 +7,10 @@ public class PlayerHealth : MonoBehaviour
     [Header("Efectos Visuales")]
     public GameObject redOverlay;
 
+    [Header("Efectos Sonoros")]
+    public AudioClip painSound;
+    private AudioSource audioSource;
+
     [Header("Físicas de Impacto")]
     public float knockbackForce = 5f;
     private Rigidbody rb;
@@ -24,7 +28,27 @@ public class PlayerHealth : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         cc = GetComponent<CharacterController>();
 
-        if (redOverlay != null) redOverlay.SetActive(false);
+        audioSource = GetComponent<AudioSource>();
+
+       
+        if (redOverlay == null)
+        {
+            
+            GameObject overlayEnEscena = GameObject.Find("RedOverlay");
+
+            if (overlayEnEscena != null)
+            {
+                redOverlay = overlayEnEscena; // Lo conecta
+            }
+            else
+            {
+                Debug.LogWarning("Falta la pantalla roja: Asegurate de que el objeto en el Canvas se llame exactamente 'RedOverlay' y esté PRENDIDO antes de darle a Play.");
+            }
+        }
+        if (redOverlay != null)
+        {
+            redOverlay.SetActive(false);
+        }
     }
 
     // --- NUEVO: DETECCIÓN FÍSICA ---
@@ -51,6 +75,11 @@ public class PlayerHealth : MonoBehaviour
 
         currentHits++;
         Debug.Log("Hit detectado. Vidas restantes: " + (maxHits - currentHits));
+
+        if (audioSource != null && painSound != null)
+        {
+            audioSource.PlayOneShot(painSound);
+        }
 
         if (redOverlay != null)
         {
