@@ -14,7 +14,7 @@ public class DoorController : MonoBehaviour, IInteractable
 
     [Header("Estado de la Puerta")]
     [Tooltip("Si está marcada, no se abrirá hasta que un evento la desbloquee")]
-    [SerializeField] private bool isLocked = true;
+    public bool isLocked = true;
 
     [Header("Feedback al jugador")]
     [SerializeField] private string lockedText = "Está bloqueada... Parece que falta algo.";

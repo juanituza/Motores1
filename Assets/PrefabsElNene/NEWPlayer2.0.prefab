@@ -256,6 +256,8 @@ MonoBehaviour:
   globalVolume: {fileID: 0}
   crouchVignetteIntensity: 0.55
   vignetteFadeSpeed: 2
+  redOverlay: {fileID: 0}
+  maxHits: 3
 --- !u!114 &7337455804541536762
 MonoBehaviour:
   m_ObjectHideFlags: 0
