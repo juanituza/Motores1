@@ -17,6 +17,7 @@ public class EnemyAI : MonoBehaviour
     [Header("Patrol")]
     public float patrolSpeed = 2f;
     public float chaseSpeed = 4.5f;
+    [SerializeField] private float godModeSpeed = 5.5f; // Controlá la velocidad del final desde el Inspector
     public List<Transform> patrolWaypoints;
     private int currentWaypointIndex = 0;
     private bool movingForward = true;
@@ -49,16 +50,10 @@ public class EnemyAI : MonoBehaviour
     public AudioSource footstepsAudioSource;
     public AudioClip footstepSound;
 
+    [Header("Modo Final")]
+    [HideInInspector] public bool modoFinalImplacable = false; // Lo activa el switch por código
 
-    [Header("Door Interaction")]
-    public float interactRange = 3f;
-    public LayerMask interactableLayer;
-    public Transform rayOrigin;
-    public float doorCooldown = 2f;
-    public float waitingForTheDoor = 1.2f;
-    private float nextInteractTime = 0f;
-    [HideInInspector] public bool isWaitingForDoor = false; // evita conflicto
-    void Start()
+    void OnEnable()
     {
         GameObject targetPlayer = GameObject.FindWithTag("Player");
         if (targetPlayer != null)
@@ -92,12 +87,12 @@ public class EnemyAI : MonoBehaviour
 
         if (isSustainingCooldown) return;
 
-        CheckForDoors(); // Al abrir una puerta, ignora la persecucion
-        if (isWaitingForDoor) return;
-
-        HearingDetection();
-
-        CheckPlayerDistanceAndTeleport();
+        // PARCHE: Si está en Godmode, desactivamos la detección acústica/raycasts internos de IA para evitar bugeos
+        if (!modoFinalImplacable)
+        {
+            HearingDetection();
+            CheckPlayerDistanceAndTeleport(); // Cancela también el teleport tipo Slenderman
+        }
 
         switch (currentState)
         {
@@ -139,7 +134,9 @@ public class EnemyAI : MonoBehaviour
     void ChaseBehavior()
     {
         agent.isStopped = false;
-        agent.speed = chaseSpeed;
+
+        // Seteamos la velocidad según corresponda
+        agent.speed = modoFinalImplacable ? godModeSpeed : chaseSpeed;
         agent.destination = player.position;
 
         Vector3 nextPathPoint = agent.steeringTarget - transform.position;
@@ -153,31 +150,39 @@ public class EnemyAI : MonoBehaviour
         float distanceToPlayer = Vector3.Distance(transform.position, player.position);
         bool playerIsMakingNoise = Input.GetKey(KeyCode.LeftShift) && (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0);
 
-        if (!playerIsMakingNoise || distanceToPlayer > hearingRange)
+        // Si está en modo final, ignora por completo si corrés, caminás o hacés ruido: te sigue fija
+        if (!modoFinalImplacable)
         {
-            currentChaseTimer += Time.deltaTime;
-
-            if (currentChaseTimer >= maxChaseTimeWithoutNoise)
+            if (!playerIsMakingNoise || distanceToPlayer > hearingRange)
             {
-                Debug.Log("El zombie ciego perdió el rastro acústico.");
+                currentChaseTimer += Time.deltaTime;
+
+                if (currentChaseTimer >= maxChaseTimeWithoutNoise)
+                {
+                    Debug.Log("El zombie ciego perdió el rastro acústico.");
+                    ReturnToPatrol();
+                    return;
+                }
+            }
+            else
+            {
+                currentChaseTimer = 0f;
+            }
+
+            if (distanceToPlayer > maxDistanceToTeleport / 1.5f)
+            {
                 ReturnToPatrol();
-                return;
             }
         }
         else
         {
-            currentChaseTimer = 0f;
+            currentChaseTimer = 0f; // Reseteo constante del timer de escape en el final
         }
 
         if (distanceToPlayer <= attackDistance)
         {
             StartCoroutine(PerformAttack());
             return;
-        }
-
-        if (distanceToPlayer > maxDistanceToTeleport / 1.5f)
-        {
-            ReturnToPatrol();
         }
     }
 
@@ -253,8 +258,8 @@ public class EnemyAI : MonoBehaviour
             if (distanceToPlayer <= hearingRange && playerIsRunningAway)
             {
                 currentState = EnemyState.Chasing;
-                agent.speed = chaseSpeed;
-                if (anim != null) anim.SetFloat("currentSpeed", chaseSpeed);
+                agent.speed = modoFinalImplacable ? godModeSpeed : chaseSpeed;
+                if (anim != null) anim.SetFloat("currentSpeed", agent.speed);
                 currentChaseTimer = 0f;
             }
             else
@@ -271,6 +276,13 @@ public class EnemyAI : MonoBehaviour
 
     void ReturnToPatrol()
     {
+        // En el modo final implacable, el bicho tiene prohibido volver a patrullar
+        if (modoFinalImplacable)
+        {
+            currentState = EnemyState.Chasing;
+            return;
+        }
+
         currentState = EnemyState.Patrolling;
         currentChaseTimer = 0f;
 
@@ -403,6 +415,16 @@ public class EnemyAI : MonoBehaviour
         agent.destination = patrolWaypoints[currentWaypointIndex].position;
     }
 
+    public void ActivarFuriaImplacable()
+    {
+        modoFinalImplacable = true;
+        currentState = EnemyState.Chasing;
+        if (agent != null && agent.enabled)
+        {
+            agent.speed = godModeSpeed;
+        }
+    }
+
     void ControlAnimations()
     {
         if (anim != null)
@@ -415,7 +437,7 @@ public class EnemyAI : MonoBehaviour
             }
             else if (currentState == EnemyState.Chasing)
             {
-                targetSpeedForAnimator = chaseSpeed;
+                targetSpeedForAnimator = modoFinalImplacable ? godModeSpeed : chaseSpeed;
             }
 
             float currentAnimatorSpeed = anim.GetFloat("currentSpeed");
@@ -439,40 +461,5 @@ public class EnemyAI : MonoBehaviour
     {
         Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(transform.position, hearingRange);
-    }
-    // A partir de aca logica de puertas
-    private void CheckForDoors()
-    {
-        if (Time.time < nextInteractTime) return;
-
-        Vector3 origin = rayOrigin != null ? rayOrigin.position : transform.position;
-        Vector3 direction = transform.forward;
-
-        if (Physics.Raycast(origin, direction, out RaycastHit hit, interactRange, interactableLayer))
-        {
-            DoorController door= hit.collider.GetComponent<DoorController>();
-            if (door != null)
-            {
-                door.Interact();
-                nextInteractTime = Time.time + doorCooldown;
-                StartCoroutine(WaitAtDoorRoutine());
-            }
-        }
-    }
-    private IEnumerator WaitAtDoorRoutine()
-    {
-        isWaitingForDoor = true; // Bloquea la funcion update
-        agent.isStopped = true;
-        agent.velocity = Vector3.zero;
-
-        if (anim != null)
-        {
-            anim.SetFloat("currentSpeed", 0f); // Frena la animación
-        }
-
-        yield return new WaitForSeconds(waitingForTheDoor);
-
-        agent.isStopped = false;
-        isWaitingForDoor = false; 
     }
 }

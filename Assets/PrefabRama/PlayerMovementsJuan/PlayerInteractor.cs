@@ -58,6 +58,8 @@ public class PlayerInteractor : MonoBehaviour
             bool hasInteraction =
                 hit.collider.GetComponentInParent<LightSwitchInput>() != null ||
                 hit.collider.GetComponentInParent<MainPowerSwitch>() != null ||
+                hit.collider.GetComponent<FinalSwitch>() != null ||
+                hit.collider.GetComponentInParent<FinalSwitch>() != null ||
                 hit.collider.GetComponent<IInteractable>() != null;
 
             HUDManager.Instance.SetInteractIcon(hasInteraction);
@@ -75,6 +77,12 @@ public class PlayerInteractor : MonoBehaviour
             return;
         }
 
+        // --- NUEVO: Forzar a que la interacción responda SÓLO al click izquierdo del Mouse ---
+        if (Mouse.current != null && !Mouse.current.leftButton.wasPressedThisFrame)
+        {
+            return; // Si se tocó otra tecla asignada al input action, la ignoramos por completo
+        }
+
         Ray ray = playerCamera.ViewportPointToRay(
             new Vector3(0.5f, 0.5f, 0)
         );
@@ -84,6 +92,19 @@ public class PlayerInteractor : MonoBehaviour
         if (Physics.Raycast(ray, out RaycastHit hit, interactRange, interactableLayer))
         {
             Debug.Log("Ray hit: " + hit.collider.name);
+
+            // FINAL SWITCH (Último Interruptor)
+            FinalSwitch finalSwitch = hit.collider.GetComponent<FinalSwitch>();
+            if (finalSwitch == null)
+            {
+                finalSwitch = hit.collider.GetComponentInParent<FinalSwitch>();
+            }
+
+            if (finalSwitch != null)
+            {
+                finalSwitch.ActivarFinal();
+                return;
+            }
 
             // LIGHT SWITCH
             LightSwitchInput lightSwitch =
