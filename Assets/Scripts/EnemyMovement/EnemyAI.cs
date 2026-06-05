@@ -450,10 +450,10 @@ public class EnemyAI : MonoBehaviour
 
         if (Physics.Raycast(origin, direction, out RaycastHit hit, interactRange, interactableLayer))
         {
-            SystemDoor puerta = hit.collider.GetComponent<SystemDoor>();
-            if (puerta != null)
+            DoorController door= hit.collider.GetComponent<DoorController>();
+            if (door != null)
             {
-                puerta.Interact();
+                door.Interact();
                 nextInteractTime = Time.time + doorCooldown;
                 StartCoroutine(WaitAtDoorRoutine());
             }

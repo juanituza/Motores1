@@ -249407,6 +249407,7 @@ MonoBehaviour:
   windowMesh: {fileID: 1731590080}
   zombieEnemy: {fileID: 2091044241}
   zombieSpawnPoint: {fileID: 1785776500}
+  playerAgitationClip: {fileID: 8300000, guid: 63f302e32ad71a247b4f79f350f33286, type: 3}
 --- !u!82 &1758904997
 AudioSource:
   m_ObjectHideFlags: 0
