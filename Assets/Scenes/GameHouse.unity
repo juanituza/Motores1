@@ -177,7 +177,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6391596061400362933, guid: da3df1297d03bea4abeae2955ab35b07, type: 3}
       propertyPath: isLocked
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6391596061400362933, guid: da3df1297d03bea4abeae2955ab35b07, type: 3}
       propertyPath: lockedText
@@ -28327,7 +28327,7 @@ Transform:
   m_GameObject: {fileID: 314418371}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -600.38, y: 0.18, z: 563.74}
+  m_LocalPosition: {x: -593.25, y: 0.18, z: 585.844}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -236344,7 +236344,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6391596061400362933, guid: da3df1297d03bea4abeae2955ab35b07, type: 3}
       propertyPath: isLocked
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6391596061400362933, guid: da3df1297d03bea4abeae2955ab35b07, type: 3}
       propertyPath: lockedText
