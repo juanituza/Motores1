@@ -20,6 +20,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Victory.unity
     guid: e9469baf66d8cad4ca8c065b464207ed
+  - enabled: 1
+    path: Assets/Scenes/GameHouse.unity
+    guid: 8e977d811cd170246874cfe215b1c162
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
