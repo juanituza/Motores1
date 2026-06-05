@@ -4,27 +4,79 @@ using UnityEngine.SceneManagement;
 
 public class PlayerHealth : MonoBehaviour
 {
+    [Header("Efectos Visuales")]
     public GameObject redOverlay;
+
+    [Header("Efectos Sonoros")]
+    public AudioClip painSound;
+    [Range(0f, 1f)] public float painVolume = 0.5f;
+    private AudioSource audioSource;
+
+    [Header("Físicas de Impacto")]
     public float knockbackForce = 5f;
     private Rigidbody rb;
     private CharacterController cc;
 
-    [Header("GameOver")]
-    public int maxHits = 3;             
-    private int currentHits = 0;        
+    [Header("Sistema de Vidas")]
+    public int maxHits = 3;
+    private int currentHits = 0;
+
+    // Evita recibir múltiples golpes en un solo segundo
+    private bool isInvulnerable = false;
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         cc = GetComponent<CharacterController>();
 
-        if (redOverlay != null) redOverlay.SetActive(false);
+        audioSource = GetComponent<AudioSource>();
+
+       
+        if (redOverlay == null)
+        {
+            
+            GameObject overlayEnEscena = GameObject.Find("RedOverlay");
+
+            if (overlayEnEscena != null)
+            {
+                redOverlay = overlayEnEscena; // Lo conecta solo
+            }
+           
+        }
+        if (redOverlay != null)
+        {
+            redOverlay.SetActive(false);
+        }
     }
 
+    // --- NUEVO: DETECCIÓN FÍSICA ---
+    private void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        if (hit.gameObject.CompareTag("Enemy"))
+        {
+            TakeHit(hit.transform.position);
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Enemy"))
+        {
+            TakeHit(other.transform.position);
+        }
+    }
+   
     public void TakeHit(Vector3 attackerPosition)
     {
+        if (isInvulnerable) return; // Filtro de invulnerabilidad
+
         currentHits++;
-        Debug.Log("Hit, quedan" + currentHits + " / " + maxHits);
+        Debug.Log("Hit detectado. Vidas restantes: " + (maxHits - currentHits));
+
+        if (audioSource != null && painSound != null) // sonido de dolor con el parametro de volumen
+        {
+            audioSource.PlayOneShot(painSound, painVolume);
+        }
 
         if (redOverlay != null)
         {
@@ -35,6 +87,7 @@ public class PlayerHealth : MonoBehaviour
         pushDirection.y = 0.1f;
 
         StartCoroutine(ApplyKnockbackForce(pushDirection));
+
         if (currentHits >= maxHits)
         {
             TriggerGameOver();
@@ -49,9 +102,13 @@ public class PlayerHealth : MonoBehaviour
 
     IEnumerator FlashRedScreen()
     {
+        isInvulnerable = true;
+
         redOverlay.SetActive(true);
         yield return new WaitForSeconds(1f);
         redOverlay.SetActive(false);
+
+        isInvulnerable = false;
     }
 
     IEnumerator ApplyKnockbackForce(Vector3 direction)

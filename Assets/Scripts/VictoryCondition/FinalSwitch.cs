@@ -14,7 +14,6 @@ public class FinalSwitch : MonoBehaviour
         if (interactuado) return;
         interactuado = true;
 
-        // 1. Prende la luz del compañero
         LightSwitchInput luzCompañero = GetComponent<LightSwitchInput>();
         if (luzCompañero == null) luzCompañero = GetComponentInParent<LightSwitchInput>();
         if (luzCompañero == null) luzCompañero = GetComponentInChildren<LightSwitchInput>();
@@ -24,7 +23,6 @@ public class FinalSwitch : MonoBehaviour
             luzCompañero.Interact();
         }
 
-        // 2. Teletransporte forzado del Zombie
         if (zombiePrefab != null && finalSpawnPoint != null)
         {
             NavMeshAgent zombieAgent = zombiePrefab.GetComponent<NavMeshAgent>();
@@ -44,20 +42,17 @@ public class FinalSwitch : MonoBehaviour
             }
         }
 
-        // 3. Activación de la velocidad y modo implacable de forma directa
         EnemyAI zombieAI = zombiePrefab.GetComponent<EnemyAI>();
         if (zombieAI != null)
         {
-            zombieAI.modoFinalImplacable = true; // Cambia la variable directamente
-            zombieAI.currentState = EnemyAI.EnemyState.Chasing; // Fuerza el estado
+            zombieAI.modoFinalImplacable = true;
+            zombieAI.currentState = EnemyAI.EnemyState.Chasing;
 
-            // --- CORRECCIÓN CLAVE: Declaramos y buscamos el NavMeshAgent ---
             UnityEngine.AI.NavMeshAgent zombieAgent = zombiePrefab.GetComponent<UnityEngine.AI.NavMeshAgent>();
 
-            // Le seteamos la velocidad directo al agente desde acá por si acaso
             if (zombieAgent != null)
             {
-                zombieAgent.speed = 5.5f; // Podés cambiar este número fijo a mano si querés (ej: 5.5f, 6f)
+                zombieAgent.speed = 5.5f;
             }
         }
     }

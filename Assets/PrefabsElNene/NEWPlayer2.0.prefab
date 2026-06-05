@@ -168,6 +168,7 @@ GameObject:
   - component: {fileID: 4978135081497419914}
   - component: {fileID: 4769369438207146457}
   - component: {fileID: 8400567112287610223}
+  - component: {fileID: -2526419516407273129}
   m_Layer: 3
   m_Name: NEWPlayer2.0
   m_TagString: Player
@@ -256,8 +257,6 @@ MonoBehaviour:
   globalVolume: {fileID: 0}
   crouchVignetteIntensity: 0.55
   vignetteFadeSpeed: 2
-  redOverlay: {fileID: 0}
-  maxHits: 3
 --- !u!114 &7337455804541536762
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -512,3 +511,20 @@ MonoBehaviour:
   crouchVolume: 0.1
   sprintSpeedThreshold: 3
   crouchSpeedThreshold: 1.5
+--- !u!114 &-2526419516407273129
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5751335055317833331}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fc8fe50586cf814dad249a2de8281cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
+  redOverlay: {fileID: 0}
+  painSound: {fileID: 8300000, guid: f76dc62b6ffbd8c4ea6555dd41790cd8, type: 3}
+  painVolume: 0.08
+  knockbackForce: 5
+  maxHits: 3

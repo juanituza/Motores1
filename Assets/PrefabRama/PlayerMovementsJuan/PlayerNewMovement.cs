@@ -108,7 +108,7 @@ public class PlayerNewMovement : MonoBehaviour
         sprintAction.action.Enable();
         crouchAction.action.Enable();
 
-        // NUEVO: Habilitamos y nos suscribimos al salto
+        // NUEVO: Habilitamos y nos suscitamos al salto
         jumpAction.action.Enable();
         jumpAction.action.performed += PerformJump;
 

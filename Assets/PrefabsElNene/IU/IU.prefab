@@ -150,6 +150,7 @@ GameObject:
   - component: {fileID: 3685566635531344300}
   - component: {fileID: 360063664996094023}
   - component: {fileID: 9060231294766523326}
+  - component: {fileID: 3643999612027257611}
   m_Layer: 5
   m_Name: IU
   m_TagString: Untagged
@@ -263,6 +264,19 @@ MonoBehaviour:
   ephemeralText: {fileID: 3648869132418316652}
   missionText: {fileID: 3785837768795594828}
   timerText: {fileID: 0}
+--- !u!114 &3643999612027257611
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2151812243086634821}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 551609705b03e9144842bdc2c82ac77a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RedOverlayManager
+  redOverlayCanvasGroup: {fileID: 0}
 --- !u!1 &5570184553191833430
 GameObject:
   m_ObjectHideFlags: 0
