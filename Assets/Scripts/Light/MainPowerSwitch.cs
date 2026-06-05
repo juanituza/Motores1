@@ -25,7 +25,7 @@ public class MainPowerSwitch : MonoBehaviour
     {
         switchAnimator = GetComponent<SwitchAnimator>();
     }
-
+   
     public void Interact()
     {
         EnergyManager.TogglePower();
