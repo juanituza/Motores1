@@ -168,6 +168,7 @@ GameObject:
   - component: {fileID: 4978135081497419914}
   - component: {fileID: 4769369438207146457}
   - component: {fileID: 8400567112287610223}
+  - component: {fileID: 4124270818049818511}
   m_Layer: 3
   m_Name: NEWPlayer2.0
   m_TagString: Player
@@ -510,3 +511,18 @@ MonoBehaviour:
   crouchVolume: 0.1
   sprintSpeedThreshold: 3
   crouchSpeedThreshold: 1.5
+--- !u!114 &4124270818049818511
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5751335055317833331}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fc8fe50586cf814dad249a2de8281cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
+  redOverlay: {fileID: 6230984567975532568, guid: 609d0dcbd4ce4d043b152e45b439c0a1, type: 3}
+  knockbackForce: 5
+  maxHits: 3
