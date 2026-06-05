@@ -212165,6 +212165,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 973028192569928636, guid: 87cda4a53b823224fa222cdc75b1a1db, type: 3}
       insertIndex: -1
       addedObject: {fileID: 486364878}
+    - targetCorrespondingSourceObject: {fileID: 339003146046501823, guid: 87cda4a53b823224fa222cdc75b1a1db, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1823281700}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 87cda4a53b823224fa222cdc75b1a1db, type: 3}
 --- !u!1001 &1246397530
@@ -235539,62 +235542,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.0042073387, y: 0.005714147, z: 0.009168307}
   m_Center: {x: 0.0021031925, y: 0.0026122883, z: 0.004584152}
---- !u!1 &1518793268
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1518793269}
-  - component: {fileID: 1518793270}
-  m_Layer: 0
-  m_Name: LightFlickerController
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1518793269
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1518793268}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 2016144625}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1518793270
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1518793268}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 39797bec0113e9e49946fc0aa8788096, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::LightFlickerController
-  lightsToFlicker:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  minOnTime: 0.05
-  maxOnTime: 0.3
-  minOffTime: 0.05
-  maxOffTime: 0.2
 --- !u!1001 &1524495422
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -239197,6 +239144,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 4537759560908000182, guid: 87da7f670ac19704787b5846a4ea54f2, type: 3}
   m_PrefabInstance: {fileID: 1600961780}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1601057963 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 339003146046501823, guid: 87cda4a53b823224fa222cdc75b1a1db, type: 3}
+  m_PrefabInstance: {fileID: 1244410213}
   m_PrefabAsset: {fileID: 0}
 --- !u!108 &1601334081 stripped
 Light:
@@ -251574,52 +251526,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8178366140442230321, guid: 2e147b301e1ee824eb6fb086f02f4665, type: 3}
   m_PrefabInstance: {fileID: 1281241851}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1823281699
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1823281700}
-  - component: {fileID: 1823281701}
-  m_Layer: 0
-  m_Name: LastSwitchTrigger
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1823281700
+--- !u!4 &1823281700 stripped
 Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 1778864218172248495, guid: 8c258e06c3aa63245a1a3cb3aba6332d, type: 3}
+  m_PrefabInstance: {fileID: 2584482027752288956}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1823281699}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 2016144625}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1823281701
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1823281699}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a87370e7ee0a2946aae63f3d537dfb4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::LastSwitchTrigger
-  mainPowerSwitch: {fileID: 561088618}
-  switchesRequiredToFlicker: 4
 --- !u!1001 &1824696898
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -265367,8 +265278,6 @@ Transform:
   - {fileID: 7466771}
   - {fileID: 1085736708}
   - {fileID: 1962388385}
-  - {fileID: 1518793269}
-  - {fileID: 1823281700}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2022344901
@@ -273121,6 +273030,83 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6e319c994dbf6ba4b8b447ca97b20347, type: 3}
+--- !u!1001 &2584482027752288956
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1601057963}
+    m_Modifications:
+    - target: {fileID: 1061633949683103221, guid: 8c258e06c3aa63245a1a3cb3aba6332d, type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: 3306451490063965843, guid: 0000000000000000d000000000000000, type: 0}
+    - target: {fileID: 1061633949683103221, guid: 8c258e06c3aa63245a1a3cb3aba6332d, type: 3}
+      propertyPath: m_Name
+      value: LastSwitchTrigger
+      objectReference: {fileID: 0}
+    - target: {fileID: 1778864218172248495, guid: 8c258e06c3aa63245a1a3cb3aba6332d, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 14.492752
+      objectReference: {fileID: 0}
+    - target: {fileID: 1778864218172248495, guid: 8c258e06c3aa63245a1a3cb3aba6332d, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 14.492754
+      objectReference: {fileID: 0}
+    - target: {fileID: 1778864218172248495, guid: 8c258e06c3aa63245a1a3cb3aba6332d, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 14.492752
+      objectReference: {fileID: 0}
+    - target: {fileID: 1778864218172248495, guid: 8c258e06c3aa63245a1a3cb3aba6332d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.07
+      objectReference: {fileID: 0}
+    - target: {fileID: 1778864218172248495, guid: 8c258e06c3aa63245a1a3cb3aba6332d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.39
+      objectReference: {fileID: 0}
+    - target: {fileID: 1778864218172248495, guid: 8c258e06c3aa63245a1a3cb3aba6332d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.14
+      objectReference: {fileID: 0}
+    - target: {fileID: 1778864218172248495, guid: 8c258e06c3aa63245a1a3cb3aba6332d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1778864218172248495, guid: 8c258e06c3aa63245a1a3cb3aba6332d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1778864218172248495, guid: 8c258e06c3aa63245a1a3cb3aba6332d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1778864218172248495, guid: 8c258e06c3aa63245a1a3cb3aba6332d, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1778864218172248495, guid: 8c258e06c3aa63245a1a3cb3aba6332d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1778864218172248495, guid: 8c258e06c3aa63245a1a3cb3aba6332d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1778864218172248495, guid: 8c258e06c3aa63245a1a3cb3aba6332d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3518634653851180257, guid: 8c258e06c3aa63245a1a3cb3aba6332d, type: 3}
+      propertyPath: mainPowerSwitch
+      value: 
+      objectReference: {fileID: 561088618}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 8c258e06c3aa63245a1a3cb3aba6332d, type: 3}
 --- !u!1001 &3169583731920321396
 PrefabInstance:
   m_ObjectHideFlags: 0
