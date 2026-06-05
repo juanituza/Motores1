@@ -9,6 +9,7 @@ public class PlayerHealth : MonoBehaviour
 
     [Header("Efectos Sonoros")]
     public AudioClip painSound;
+    [Range(0f, 1f)] public float painVolume = 0.5f;
     private AudioSource audioSource;
 
     [Header("Físicas de Impacto")]
@@ -38,12 +39,9 @@ public class PlayerHealth : MonoBehaviour
 
             if (overlayEnEscena != null)
             {
-                redOverlay = overlayEnEscena; // Lo conecta
+                redOverlay = overlayEnEscena; // Lo conecta solo
             }
-            else
-            {
-                Debug.LogWarning("Falta la pantalla roja: Asegurate de que el objeto en el Canvas se llame exactamente 'RedOverlay' y esté PRENDIDO antes de darle a Play.");
-            }
+           
         }
         if (redOverlay != null)
         {
@@ -67,8 +65,7 @@ public class PlayerHealth : MonoBehaviour
             TakeHit(other.transform.position);
         }
     }
-    // -------------------------------
-
+   
     public void TakeHit(Vector3 attackerPosition)
     {
         if (isInvulnerable) return; // Filtro de invulnerabilidad
@@ -76,9 +73,9 @@ public class PlayerHealth : MonoBehaviour
         currentHits++;
         Debug.Log("Hit detectado. Vidas restantes: " + (maxHits - currentHits));
 
-        if (audioSource != null && painSound != null)
+        if (audioSource != null && painSound != null) // sonido de dolor con el parametro de volumen
         {
-            audioSource.PlayOneShot(painSound);
+            audioSource.PlayOneShot(painSound, painVolume);
         }
 
         if (redOverlay != null)

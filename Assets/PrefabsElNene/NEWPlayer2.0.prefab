@@ -524,6 +524,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
   redOverlay: {fileID: 0}
-  painSound: {fileID: 0}
+  painSound: {fileID: 8300000, guid: f76dc62b6ffbd8c4ea6555dd41790cd8, type: 3}
+  painVolume: 0.08
   knockbackForce: 5
   maxHits: 3

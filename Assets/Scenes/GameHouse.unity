@@ -37704,13 +37704,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 493819848}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 937.3092, y: 430.9657, z: 0.2132}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -22.690796, y: -109.0343, z: 0.2132}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1630425879}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 656984757}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &494333175
 PrefabInstance:
@@ -45927,7 +45927,10 @@ PrefabInstance:
       objectReference: {fileID: 1687664295}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 4556726120535951563, guid: 7db96806c54e009468c3bad2fb401096, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 493819849}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 2151812243086634821, guid: 7db96806c54e009468c3bad2fb401096, type: 3}
       insertIndex: -1
@@ -47558,6 +47561,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 551609705b03e9144842bdc2c82ac77a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RedOverlayManager
+--- !u!224 &656984757 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 4556726120535951563, guid: 7db96806c54e009468c3bad2fb401096, type: 3}
+  m_PrefabInstance: {fileID: 610648848}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &658152627
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -239959,9 +239967,9 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1630425878}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -0.2132}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 918616060}
@@ -239969,9 +239977,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 22.690796, y: 109.0343}
+  m_SizeDelta: {x: 1920, y: 1080}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1630425880
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -274384,7 +274392,7 @@ PrefabInstance:
       objectReference: {fileID: 8300000, guid: 19fe36f023c23504184e253df0cab1a8, type: 3}
     - target: {fileID: 6388138822776292719, guid: 247cb6e2d48b43246ac795935affc472, type: 3}
       propertyPath: attackDistance
-      value: 1
+      value: 1.3
       objectReference: {fileID: 0}
     - target: {fileID: 6388138822776292719, guid: 247cb6e2d48b43246ac795935affc472, type: 3}
       propertyPath: minSpawnDistance
@@ -275640,4 +275648,3 @@ SceneRoots:
   - {fileID: 1243694920}
   - {fileID: 794734137}
   - {fileID: 177130064}
-  - {fileID: 493819849}
