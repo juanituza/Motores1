@@ -15,7 +15,7 @@ public class VictoryTrigger : MonoBehaviour
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
 
-            SceneManager.LoadScene(nombreEscenaVideo);
+            NewGameManager.Instance.TriggerEnding();
         }
     }
 }

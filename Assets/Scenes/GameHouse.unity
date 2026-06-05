@@ -34352,6 +34352,10 @@ PrefabInstance:
       propertyPath: 'doorTransformsToUnlock.Array.data[0]'
       value: 
       objectReference: {fileID: 637369074}
+    - target: {fileID: 3665565846687074915, guid: b089a69a46596284bb2501fb8cccdece, type: 3}
+      propertyPath: 'doorTransformsToUnlock.Array.data[1]'
+      value: 
+      objectReference: {fileID: 332487031}
     - target: {fileID: 6337273445932540051, guid: b089a69a46596284bb2501fb8cccdece, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.153
@@ -184599,6 +184603,24 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7c1bbcf414e88b0438ca0792c470ea93, type: 3}
+--- !u!1 &812958227 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6593810156408419311, guid: da3df1297d03bea4abeae2955ab35b07, type: 3}
+  m_PrefabInstance: {fileID: 1970376450}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &812958229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 812958227}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5459e5d9d9b1ace45aee6950096d2b85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::VictoryTrigger
+  nombreEscenaVideo: Final
 --- !u!1001 &814212187
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -263075,7 +263097,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6593810156408419311, guid: da3df1297d03bea4abeae2955ab35b07, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 812958229}
   m_SourcePrefab: {fileID: 100100000, guid: da3df1297d03bea4abeae2955ab35b07, type: 3}
 --- !u!1001 &1970765890
 PrefabInstance:
@@ -264386,7 +264411,7 @@ MonoBehaviour:
   playerPrefab: {fileID: 5751335055317833331, guid: 5c04dfd08c6d2974e8d15437e2e69878, type: 3}
   spawnPoint: {fileID: 314418372}
   virtualCamera: {fileID: 8566129681935595400}
-  endingSceneName: EndingScene
+  endingSceneName: Final
 --- !u!4 &1999351634
 Transform:
   m_ObjectHideFlags: 0
