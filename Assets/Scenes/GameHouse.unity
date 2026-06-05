@@ -40202,7 +40202,7 @@ PrefabInstance:
       objectReference: {fileID: 1441083557}
     - target: {fileID: 8196251718092038171, guid: 76539be007bca77449c6bf184199c194, type: 3}
       propertyPath: houseLights.Array.size
-      value: 86
+      value: 80
       objectReference: {fileID: 0}
     - target: {fileID: 8196251718092038171, guid: 76539be007bca77449c6bf184199c194, type: 3}
       propertyPath: 'houseLights.Array.data[0]'
@@ -40495,55 +40495,55 @@ PrefabInstance:
     - target: {fileID: 8196251718092038171, guid: 76539be007bca77449c6bf184199c194, type: 3}
       propertyPath: 'houseLights.Array.data[72]'
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 15446703}
     - target: {fileID: 8196251718092038171, guid: 76539be007bca77449c6bf184199c194, type: 3}
       propertyPath: 'houseLights.Array.data[73]'
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1158547276}
     - target: {fileID: 8196251718092038171, guid: 76539be007bca77449c6bf184199c194, type: 3}
       propertyPath: 'houseLights.Array.data[74]'
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 296736728}
     - target: {fileID: 8196251718092038171, guid: 76539be007bca77449c6bf184199c194, type: 3}
       propertyPath: 'houseLights.Array.data[75]'
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 311092579}
     - target: {fileID: 8196251718092038171, guid: 76539be007bca77449c6bf184199c194, type: 3}
       propertyPath: 'houseLights.Array.data[76]'
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 9467599}
     - target: {fileID: 8196251718092038171, guid: 76539be007bca77449c6bf184199c194, type: 3}
       propertyPath: 'houseLights.Array.data[77]'
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 74932497}
     - target: {fileID: 8196251718092038171, guid: 76539be007bca77449c6bf184199c194, type: 3}
       propertyPath: 'houseLights.Array.data[78]'
       value: 
-      objectReference: {fileID: 15446703}
+      objectReference: {fileID: 256978893}
     - target: {fileID: 8196251718092038171, guid: 76539be007bca77449c6bf184199c194, type: 3}
       propertyPath: 'houseLights.Array.data[79]'
       value: 
-      objectReference: {fileID: 1158547276}
+      objectReference: {fileID: 681967893}
     - target: {fileID: 8196251718092038171, guid: 76539be007bca77449c6bf184199c194, type: 3}
       propertyPath: 'houseLights.Array.data[80]'
       value: 
-      objectReference: {fileID: 296736728}
+      objectReference: {fileID: 681967893}
     - target: {fileID: 8196251718092038171, guid: 76539be007bca77449c6bf184199c194, type: 3}
       propertyPath: 'houseLights.Array.data[81]'
       value: 
-      objectReference: {fileID: 311092579}
+      objectReference: {fileID: 681967893}
     - target: {fileID: 8196251718092038171, guid: 76539be007bca77449c6bf184199c194, type: 3}
       propertyPath: 'houseLights.Array.data[82]'
       value: 
-      objectReference: {fileID: 9467599}
+      objectReference: {fileID: 681967893}
     - target: {fileID: 8196251718092038171, guid: 76539be007bca77449c6bf184199c194, type: 3}
       propertyPath: 'houseLights.Array.data[83]'
       value: 
-      objectReference: {fileID: 74932497}
+      objectReference: {fileID: 681967893}
     - target: {fileID: 8196251718092038171, guid: 76539be007bca77449c6bf184199c194, type: 3}
       propertyPath: 'houseLights.Array.data[84]'
       value: 
-      objectReference: {fileID: 256978893}
+      objectReference: {fileID: 681967893}
     - target: {fileID: 8196251718092038171, guid: 76539be007bca77449c6bf184199c194, type: 3}
       propertyPath: 'houseLights.Array.data[85]'
       value: 
@@ -235517,6 +235517,62 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.0042073387, y: 0.005714147, z: 0.009168307}
   m_Center: {x: 0.0021031925, y: 0.0026122883, z: 0.004584152}
+--- !u!1 &1518793268
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1518793269}
+  - component: {fileID: 1518793270}
+  m_Layer: 0
+  m_Name: LightFlickerController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1518793269
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1518793268}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2016144625}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1518793270
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1518793268}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39797bec0113e9e49946fc0aa8788096, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LightFlickerController
+  lightsToFlicker:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  minOnTime: 0.05
+  maxOnTime: 0.3
+  minOffTime: 0.05
+  maxOffTime: 0.2
 --- !u!1001 &1524495422
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -251496,6 +251552,52 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8178366140442230321, guid: 2e147b301e1ee824eb6fb086f02f4665, type: 3}
   m_PrefabInstance: {fileID: 1281241851}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1823281699
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1823281700}
+  - component: {fileID: 1823281701}
+  m_Layer: 0
+  m_Name: LastSwitchTrigger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1823281700
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1823281699}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2016144625}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1823281701
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1823281699}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a87370e7ee0a2946aae63f3d537dfb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LastSwitchTrigger
+  mainPowerSwitch: {fileID: 561088618}
+  switchesRequiredToFlicker: 4
 --- !u!1001 &1824696898
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -265239,6 +265341,8 @@ Transform:
   - {fileID: 7466771}
   - {fileID: 1085736708}
   - {fileID: 1962388385}
+  - {fileID: 1518793269}
+  - {fileID: 1823281700}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2022344901
