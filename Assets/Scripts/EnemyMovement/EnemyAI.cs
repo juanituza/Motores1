@@ -51,7 +51,7 @@ public class EnemyAI : MonoBehaviour
     public AudioClip footstepSound;
 
     [Header("Modo Final")]
-    [HideInInspector] public bool modoFinalImplacable = false; // Lo activa el switch por código
+    [HideInInspector] public bool modoFinalImplacable = false; 
 
     void OnEnable()
     {
@@ -68,6 +68,11 @@ public class EnemyAI : MonoBehaviour
         {
             agent.updateRotation = false;
             agent.updatePosition = true;
+
+            if (!agent.isOnNavMesh)
+            {
+                agent.enabled = false;
+            }
         }
 
         if (anim != null) anim.applyRootMotion = false;
@@ -87,11 +92,10 @@ public class EnemyAI : MonoBehaviour
 
         if (isSustainingCooldown) return;
 
-        // PARCHE: Si está en Godmode, desactivamos la detección acústica/raycasts internos de IA para evitar bugeos
         if (!modoFinalImplacable)
         {
             HearingDetection();
-            CheckPlayerDistanceAndTeleport(); // Cancela también el teleport tipo Slenderman
+            CheckPlayerDistanceAndTeleport();
         }
 
         switch (currentState)
@@ -135,7 +139,6 @@ public class EnemyAI : MonoBehaviour
     {
         agent.isStopped = false;
 
-        // Seteamos la velocidad según corresponda
         agent.speed = modoFinalImplacable ? godModeSpeed : chaseSpeed;
         agent.destination = player.position;
 
@@ -150,7 +153,6 @@ public class EnemyAI : MonoBehaviour
         float distanceToPlayer = Vector3.Distance(transform.position, player.position);
         bool playerIsMakingNoise = Input.GetKey(KeyCode.LeftShift) && (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0);
 
-        // Si está en modo final, ignora por completo si corrés, caminás o hacés ruido: te sigue fija
         if (!modoFinalImplacable)
         {
             if (!playerIsMakingNoise || distanceToPlayer > hearingRange)
@@ -176,7 +178,7 @@ public class EnemyAI : MonoBehaviour
         }
         else
         {
-            currentChaseTimer = 0f; // Reseteo constante del timer de escape en el final
+            currentChaseTimer = 0f; 
         }
 
         if (distanceToPlayer <= attackDistance)
@@ -276,7 +278,6 @@ public class EnemyAI : MonoBehaviour
 
     void ReturnToPatrol()
     {
-        // En el modo final implacable, el bicho tiene prohibido volver a patrullar
         if (modoFinalImplacable)
         {
             currentState = EnemyState.Chasing;

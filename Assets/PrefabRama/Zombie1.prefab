@@ -869,7 +869,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9fdb5531bdf185e448dd06dfa8192f8d, type: 2}
+  - {fileID: 2100000, guid: af20caf21dc1b0c47bc3468643c18117, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3117,14 +3117,8 @@ MonoBehaviour:
   player: {fileID: 0}
   patrolSpeed: 2
   chaseSpeed: 4
+  godModeSpeed: 5.5
   patrolWaypoints:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
@@ -3152,6 +3146,9 @@ MonoBehaviour:
   - {fileID: 0}
   maxDistanceToTeleport: 13
   minSpawnDistance: 10
+  footstepsAudioSource: {fileID: 0}
+  footstepSound: {fileID: 0}
+  modoFinalImplacable: 0
 --- !u!1 &9196714885877119561
 GameObject:
   m_ObjectHideFlags: 0
@@ -3241,7 +3238,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9fdb5531bdf185e448dd06dfa8192f8d, type: 2}
+  - {fileID: 2100000, guid: af20caf21dc1b0c47bc3468643c18117, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

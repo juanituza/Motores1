@@ -20,32 +20,44 @@ public class WindowBreakEvent : MonoBehaviour
     {
         float delayDelVidrio = 0f;
 
-       
         if (breakAudio != null)
         {
             breakAudio.Play();
             if (breakAudio.clip != null) delayDelVidrio = breakAudio.clip.length;
         }
 
-        
         if (zombieEnemy != null && zombieSpawnPoint != null)
         {
             zombieEnemy.SetActive(true);
+
             NavMeshAgent agent = zombieEnemy.GetComponent<NavMeshAgent>();
-            if (agent != null) agent.Warp(zombieSpawnPoint.position);
+            if (agent != null)
+            {
+                agent.enabled = false; 
+                zombieEnemy.transform.position = zombieSpawnPoint.position;
+                zombieEnemy.transform.rotation = zombieSpawnPoint.rotation;
+                agent.enabled = true;
+
+                agent.Warp(zombieSpawnPoint.position); 
+            }
+
+            
+            EnemyAI zombieAI = zombieEnemy.GetComponent<EnemyAI>();
+            if (zombieAI != null)
+            {
+                zombieAI.currentState = EnemyAI.EnemyState.Patrolling;
+                zombieAI.modoFinalImplacable = false;
+            }
         }
 
-        
         StartCoroutine(PlayPlayerAgitationRoutine(delayDelVidrio));
         UnlockAllDoors();
 
-      
         StartCoroutine(HideWindowRoutine());
     }
 
     private IEnumerator PlayPlayerAgitationRoutine(float delay)
     {
-        
         yield return new WaitForSeconds(delay);
 
         if (playerAgitationClip == null) yield break;
@@ -77,7 +89,6 @@ public class WindowBreakEvent : MonoBehaviour
 
     private IEnumerator HideWindowRoutine()
     {
-        
         yield return new WaitForSeconds(2f);
         if (windowMesh != null) windowMesh.enabled = false;
     }
