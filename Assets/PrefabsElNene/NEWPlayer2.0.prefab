@@ -238,7 +238,7 @@ MonoBehaviour:
   cameraTarget: {fileID: 8176646845609178923}
   visualModel: {fileID: 5148243416403327360}
   walkSpeed: 2
-  sprintSpeed: 4
+  sprintSpeed: 5
   crouchSpeed: 0.5
   jumpHeight: 1
   mouseSensitivity: 0.05
@@ -253,8 +253,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 247
   gravity: -9.81
-  maxSprintTime: 5
-  globalVolume: {fileID: 0}
+  maxSprintTime: 7
+  globalVolume: {fileID: 3929591855445156203, guid: 8d409cec45c632c448561266f3c87847, type: 3}
   crouchVignetteIntensity: 0.55
   vignetteFadeSpeed: 2
 --- !u!114 &7337455804541536762
