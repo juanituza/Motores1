@@ -4745,6 +4745,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LightSwitchInput
   lightAction: {fileID: 9139923455422435572}
+  isLightOn: 0
 --- !u!114 &9139923455422435572
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5641,6 +5642,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LightSwitchInput
   lightAction: {fileID: 8932228964046564720}
+  isLightOn: 0
 --- !u!114 &8932228964046564720
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5870,6 +5872,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -3133498875991405556, guid: 844039c91f63180458ea595008048ad5, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3001767160101050808}
+    - targetCorrespondingSourceObject: {fileID: -3133498875991405556, guid: 844039c91f63180458ea595008048ad5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6067993697416870623}
     - targetCorrespondingSourceObject: {fileID: -9180012828398266957, guid: 844039c91f63180458ea595008048ad5, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8675187602615470730}
@@ -5901,6 +5906,20 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 3909233067320746374, guid: 844039c91f63180458ea595008048ad5, type: 3}
+--- !u!114 &6067993697416870623
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3436879564101127223}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31db449b811faac408e669cd78bee729, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MissionCatalyst
+  nextMission: "Enciende la luz del ba\xF1o en la sala"
+  disableAfterTrigger: 1
 --- !u!4 &8372112763825428881 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8134041142495127126, guid: 844039c91f63180458ea595008048ad5, type: 3}
@@ -5924,6 +5943,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LightSwitchInput
   lightAction: {fileID: 5757093482410911628}
+  isLightOn: 0
 --- !u!114 &5757093482410911628
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6231,6 +6251,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LightSwitchInput
   lightAction: {fileID: 4038935965421906443}
+  isLightOn: 0
 --- !u!114 &4038935965421906443
 MonoBehaviour:
   m_ObjectHideFlags: 0

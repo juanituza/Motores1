@@ -5,6 +5,8 @@ public class VictoryTrigger : MonoBehaviour
 {
     [Header("Escena del Video Final")]
     [SerializeField] private string nombreEscenaVideo = "Victory";
+    [SerializeField] private AudioSource scream;
+
 
     private void OnTriggerEnter(Collider other)
     {
@@ -14,6 +16,7 @@ public class VictoryTrigger : MonoBehaviour
             Cursor.visible = true;
 
             SceneManager.LoadScene(nombreEscenaVideo);
+            scream.Play();
         }
     }
 }
