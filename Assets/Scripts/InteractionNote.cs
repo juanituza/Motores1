@@ -3,7 +3,7 @@ using UnityEngine;
 public class InteractionNote : MonoBehaviour
 {
     [Header("Configuración de UI")]
-    [SerializeField] private GameObject interactionPrompt; // El objeto "Press E to Interact"
+    //[SerializeField] private GameObject interactionPrompt; // El objeto "Press E to Interact"
     [SerializeField] private GameObject noteCanvas;       // El Canvas con la imagen de la nota
 
     private bool isPlayerInRange = false;
@@ -14,7 +14,7 @@ public class InteractionNote : MonoBehaviour
     void Start()
     {
         // Nos aseguramos de que todo empiece oculto
-        if (interactionPrompt) interactionPrompt.SetActive(false);
+        //if (interactionPrompt) interactionPrompt.SetActive(false);
         if (noteCanvas) noteCanvas.SetActive(false);
     }
 
@@ -36,11 +36,11 @@ public class InteractionNote : MonoBehaviour
         // Si abrimos la nota, ocultamos el mensaje de "Press E" para que no moleste
         if (isNoteOpen)
         {
-            interactionPrompt.SetActive(false);
+            //interactionPrompt.SetActive(false);
         }
         else
         {
-            interactionPrompt.SetActive(true);
+            //interactionPrompt.SetActive(true);
         }
     }
 
@@ -50,7 +50,7 @@ public class InteractionNote : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             isPlayerInRange = true;
-            interactionPrompt.SetActive(true);
+            //interactionPrompt.SetActive(true);
         }
     }
 
@@ -62,7 +62,7 @@ public class InteractionNote : MonoBehaviour
             isNoteOpen = false;
 
             // Al salir, ocultamos todo por seguridad
-            interactionPrompt.SetActive(false);
+            //interactionPrompt.SetActive(false);
             noteCanvas.SetActive(false);
         }
     }
