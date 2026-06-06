@@ -253,7 +253,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 247
   gravity: -9.81
-  maxSprintTime: 7
+  maxSprintTime: 9
   globalVolume: {fileID: 3929591855445156203, guid: 8d409cec45c632c448561266f3c87847, type: 3}
   crouchVignetteIntensity: 0.55
   vignetteFadeSpeed: 2

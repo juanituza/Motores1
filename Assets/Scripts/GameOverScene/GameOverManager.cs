@@ -11,7 +11,7 @@ public class GameOverManager : MonoBehaviour
 
     public void RetryGame()
     {
-        SceneManager.LoadScene("House_Scene");
+        SceneManager.LoadScene("GameHouse");
     }
 
     public void LoadMainMenu()

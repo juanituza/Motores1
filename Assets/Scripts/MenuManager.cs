@@ -5,7 +5,7 @@ using System.Collections;
 public class MainMenuManager : MonoBehaviour
 {
     [Header("Configuración de Escenas")]
-    [SerializeField] private int gameplaySceneIndex = 1;
+    [SerializeField] private int gameplaySceneIndex = 1; //elegimos el index 
     [SerializeField] private GameObject howToPlayPanel; // Arrastra el panel de instrucciones aquí
 
     [Header("Configuración de Sonido")]
